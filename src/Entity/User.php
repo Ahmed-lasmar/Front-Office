@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User
+class User implements \Symfony\Component\Security\Core\User\UserInterface
 {
     /**
      * @var int
@@ -25,86 +25,98 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Nom", type="string", length=255, nullable=false,unique=false)
      */
     private $nom;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="Prenom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Prenom", type="string", length=255, nullable=true,unique=false)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(name="Cin", type="string", length=255, nullable=true)
      */
     private $cin;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(name="URL_Photo", type="string", length=255, nullable=true)
      */
     private $urlPhoto;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      *
-     * @ORM\Column(name="Date_de_naissance", type="date", nullable=true)
+     * @ORM\Column(name="Date_de_naissance", type="date", nullable=true,unique=false)
      */
     private $dateDeNaissance;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(name="Num_Tel", type="string", length=255, nullable=true)
      */
     private $numTel;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      *
-     * @ORM\Column(name="Date_embauche", type="date", nullable=true)
+     * @ORM\Column(name="Date_embauche", type="date", nullable=true,unique=false)
      */
     private $dateEmbauche;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="Grade", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Grade", type="string", length=255, nullable=true,unique=false)
      */
     private $grade;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="Equipe", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Equipe", type="string", length=255, nullable=true,unique=false)
      */
     private $equipe;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="Role", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Role", type="string", length=255, nullable=true,unique=false)
      */
     private $role;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=255, nullable=false)
+     * @ORM\Column(name="mdp", type="string", length=255, nullable=true,unique=false)
      */
     private $mdp;
+
+    /**
+     * @param int $iduser
+     */
+    public function setIduser(int $iduser): void
+    {
+        $this->iduser = $iduser;
+    }
+    public function getUserIdentifier(): ?string
+    {
+        return $this->iduser;
+    }
 
     public function getIduser(): ?int
     {
@@ -128,7 +140,7 @@ class User
         return $this->prenom;
     }
 
-    public function setPrenom(?string $prenom): self
+    public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
 
@@ -152,7 +164,7 @@ class User
         return $this->cin;
     }
 
-    public function setCin(?string $cin): self
+    public function setCin(string $cin): self
     {
         $this->cin = $cin;
 
@@ -164,7 +176,7 @@ class User
         return $this->urlPhoto;
     }
 
-    public function setUrlPhoto(?string $urlPhoto): self
+    public function setUrlPhoto(string $urlPhoto): self
     {
         $this->urlPhoto = $urlPhoto;
 
@@ -176,19 +188,22 @@ class User
         return $this->dateDeNaissance;
     }
 
-    public function setDateDeNaissance(?\DateTimeInterface $dateDeNaissance): self
+    public function setDateDeNaissance(\DateTimeInterface $dateDeNaissance): self
     {
         $this->dateDeNaissance = $dateDeNaissance;
 
         return $this;
     }
 
+
+
+
     public function getNumTel(): ?string
     {
         return $this->numTel;
     }
 
-    public function setNumTel(?string $numTel): self
+    public function setNumTel(string $numTel): self
     {
         $this->numTel = $numTel;
 
@@ -200,7 +215,7 @@ class User
         return $this->dateEmbauche;
     }
 
-    public function setDateEmbauche(?\DateTimeInterface $dateEmbauche): self
+    public function setDateEmbauche(\DateTimeInterface $dateEmbauche): self
     {
         $this->dateEmbauche = $dateEmbauche;
 
@@ -212,7 +227,7 @@ class User
         return $this->grade;
     }
 
-    public function setGrade(?string $grade): self
+    public function setGrade(string $grade): self
     {
         $this->grade = $grade;
 
@@ -224,7 +239,7 @@ class User
         return $this->equipe;
     }
 
-    public function setEquipe(?string $equipe): self
+    public function setEquipe(string $equipe): self
     {
         $this->equipe = $equipe;
 
@@ -236,7 +251,7 @@ class User
         return $this->role;
     }
 
-    public function setRole(?string $role): self
+    public function setRole(string $role): self
     {
         $this->role = $role;
 
@@ -256,4 +271,41 @@ class User
     }
 
 
+    public function getPassword(): string
+    {
+        return (string)$this->mdp;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+
+        // guarantee every user at least has ROLE_USER
+        $roles =[];
+        $roles = $this->role;
+
+        return array_unique((array)$roles);
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUsername()
+    {
+        return $this->nom;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
+    }
 }
