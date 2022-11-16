@@ -140,9 +140,13 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      */
     private $reset_token;
 
+    #[ORM\OneToMany(targetEntity: Conge::class, mappedBy: 'user')]
+    private $conges;
+
     /**
      * @param int $iduser
      */
+
     public function setIduser(int $iduser): void
     {
         $this->iduser = $iduser;
