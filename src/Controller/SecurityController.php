@@ -94,7 +94,7 @@ class SecurityController extends AbstractController
 
             //BUNDLE MAILER
             $message = (new Swift_Message('Mot de password oublié'))
-                ->setFrom('formationSymfony4@gmail.com')
+                ->setFrom('chadi.troudi@esprit.tn')
                 ->setTo($user->getEmail())
                 ->setBody("<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
                     "text/html");
