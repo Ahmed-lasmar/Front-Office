@@ -1,0 +1,33 @@
+{% extends 'Emp.html.twig' %}
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+    <h1>Evenement index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Idevent</th>
+            <th>Iduser</th>
+            <th>Type</th>
+            <th>Dateevent</th>
+            <th>Adresse</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.idevent }}</td>
+                <td>{{ evenement.iduser }}</td>
+                <td>{{ evenement.type }}</td>
+                <td>{{ evenement.dateevent }}</td>
+                <td>{{ evenement.adresse }}</td>*
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
