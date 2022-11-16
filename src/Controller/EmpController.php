@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Conge;
 use App\Entity\Evenement;
 use App\Entity\Formation;
+use App\Entity\User;
 use App\Form\CongeType;
+use App\Form\DemConType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,12 +55,14 @@ class EmpController extends AbstractController
 
         return $this->render('emp/conFdP.html.twig');
     }
-    #[Route('/conge', name: 'app_conge_emp', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/{iduser}/conge', name: 'app_conge_emp', methods: ['GET', 'POST'])]
+    public function newCon(Request $request,User $user, EntityManagerInterface $entityManager): Response
     {
         $conge = new Conge();
+
         $form = $this->createForm(DemConType::class, $conge);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($conge);
@@ -66,7 +71,7 @@ class EmpController extends AbstractController
             return $this->redirectToRoute('app_conge_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('conge/new.html.twig', [
+        return $this->renderForm('emp/demCon.html.twig', [
             'conge' => $conge,
             'form' => $form,
         ]);
