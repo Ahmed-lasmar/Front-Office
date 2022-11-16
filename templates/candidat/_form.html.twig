@@ -1,4 +1,37 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+<table class="col-sm-10">
+    <tr>
+        <td>
+            {{ form_label(form.urlCv) }}
+        </td>
+        <td>
+
+            {{ form_widget(form.urlCv,{'attr':{'class':'form-control'}}) }}
+        </td>
+        <td>
+
+            {{ form_errors(form.urlCv,{'attr':{'class':'text-danger'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.dPost) }}
+        </td>
+        <td>
+            {{ form_widget(form.dPost) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.competence) }}
+        </td>
+        <td>
+            {{ form_widget(form.competence,{'attr':{'class':'form-control'}}) }}
+        </td>
+        <td>
+            {{ form_errors(form.competence,{'attr':{'class':'text-danger'}}) }}
+        </td>
+    </tr>
+</table>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
