@@ -7,10 +7,7 @@
         <td>
             {{ form_widget(form.nomoffre,{'attr':{'class':'form-control'}}) }}
         </td>
-        <td>
 
-            {{ form_errors(form.nomoffre,{'attr':{'class':'text-danger'}}) }}
-        </td>
     </tr>
     <tr>
         <td>
@@ -19,9 +16,7 @@
         <td>
             {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
         </td>
-        <td>
-            {{ form_errors(form.description,{'attr':{'class':'text-danger'}}) }}
-        </td>
+
     </tr>
     <tr>
         <td>
@@ -30,9 +25,7 @@
         <td>
             {{ form_widget(form.skills,{'attr':{'class':'form-control'}}) }}
         </td>
-        <td>
-            {{ form_errors(form.skills,{'attr':{'class':'text-danger'}}) }}
-        </td>
+
     </tr>
     <tr>
         <td>
@@ -41,9 +34,7 @@
         <td>
             {{ form_widget(form.picture,{'attr':{'class':'form-control'}}) }}
         </td>
-        <td>
-            {{ form_errors(form.picture,{'attr':{'class':'text-danger'}}) }}
-        </td>
+       
     </tr>
 </table>
     <button class="btn">{{ button_label|default('Save') }}</button>
