@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Conge
 {
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'conges')]
+    private $user;
     /**
      * @var int
      *
