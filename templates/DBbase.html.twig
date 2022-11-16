@@ -53,6 +53,14 @@
         {% endblock %}
 
         <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Navbar Search -->
+            <li class="nav-item">
+                <a href="{{ path("app_logout")}}">
+                    <button type="button" class="btn btn-block btn-danger" style="width: 5rem;margin-left: revert">logout</button>
+                </a>
+            </li>
+        </ul>
 
 
     </nav>
@@ -74,7 +82,7 @@
                     <img src="{% block profilphoto %}/prime/dist/img/user2-160x160.jpg{% endblock %}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href={{ asset("#")}} class="d-block">{% block profilname %}Alexander Pierce{% endblock %}</a>
+                    <a href="{{ path('app_user_edit', {'iduser': app.user.iduser}) }}" class="d-block">{% block profilname %}Alexander Pierce{% endblock %}</a>
                 </div>
             </div>
 

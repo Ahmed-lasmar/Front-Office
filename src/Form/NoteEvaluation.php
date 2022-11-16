@@ -2,29 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Entretien;
-use Symfony\Component\Form\AbstractType;
+use App\Entity\Evaluation;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EntretienType extends AbstractType
+class NoteEvaluation extends \Symfony\Component\Form\AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('firstnameCandidat')
-            ->add('nameCandidat')
-            ->add('heure')
-            ->add('personPresent')
-            ->add('dateEntretien')
+            ->add('idEntretien')
+            ->add('note')
+            ->add('avis')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Entretien::class,
+            'data_class' => Evaluation::class,
         ]);
     }
 }

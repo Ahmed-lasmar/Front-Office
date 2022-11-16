@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Entretien;
 use App\Entity\Evaluation;
 use App\Form\EvaluationType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +23,7 @@ class EvaluationController extends AbstractController
 
         return $this->render('evaluation/index.html.twig', [
             'evaluations' => $evaluations,
+
         ]);
     }
 
