@@ -1,0 +1,35 @@
+{% extends 'Emp.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+
+{% block body %}
+    <h1>Formatteur index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>IdFor</th>
+            <th>IdFormateur</th>
+            <th>DateFor</th>
+            <th>NomFor</th>
+            <th>NumbrMaxPer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for formation in formations %}
+            <tr>
+                <td>{{ formation.idFor }}</td>
+                <td>{{ formation.idFormateur }}</td>
+                <td>{{ formation.dateFor ? formation.dateFor|date('Y-m-d') : '' }}</td>
+                <td>{{ formation.nomFor }}</td>
+                <td>{{ formation.numbrMaxPer }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

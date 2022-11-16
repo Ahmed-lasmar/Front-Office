@@ -1,4 +1,91 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_start(form) }}
+<div class="my-custom-class-for-errors">
+    {{ form_errors(form) }}
+</div>
+<table>
+    <tr>
+        <td>
+            {{ form_label(form.nom) }}
+        </td>
+        <td>
+            {{ form_widget(form.nom) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.prenom) }}
+        </td>
+        <td>
+            {{ form_widget(form.prenom) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.email) }}
+        </td>
+        <td>
+            {{ form_widget(form.email) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.cin) }}
+        </td>
+        <td>
+            {{ form_widget(form.cin) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.urlPhoto) }}
+        </td>
+        <td>
+            {{ form_widget(form.urlPhoto) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.dateDeNaissance) }}
+        </td>
+        <td>
+            {{ form_widget(form.dateDeNaissance) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.dateEmbauche) }}
+        </td>
+        <td>
+            {{ form_widget(form.dateEmbauche) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.numTel) }}
+        </td>
+        <td>
+            {{ form_widget(form.numTel) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.grade) }}
+        </td>
+        <td>
+            {{ form_widget(form.grade) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.equipe) }}
+        </td>
+        <td>
+            {{ form_widget(form.equipe) }}
+        </td>
+    </tr>
+    <tr><td></td><td>
+            <button class="btn">{{ button_label|default('Save') }}</button>
+        </td></tr>
+</table>
 {{ form_end(form) }}
