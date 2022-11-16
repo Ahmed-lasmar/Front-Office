@@ -3,40 +3,41 @@
 {% block title %}Entretien index{% endblock %}
 
 {% block body %}
-    <h1>Entretien index</h1>
+    <h1>Entretien List</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdEntretien</th>
-                <th>IdCandidat</th>
-                <th>FirstnameCandidat</th>
-                <th>NameCandidat</th>
+
+                <th>Firstname</th>
+                <th>Name</th>
                 <th>Heure</th>
-                <th>PersonPresent</th>
-                <th>DateEntretien</th>
-                <th>actions</th>
+                <th>Present Person</th>
+                <th>Date</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for entretien in entretiens %}
+        {% for entretien in entretiens  %}
+            {% for evaluation in evaluations %}
             <tr>
-                <td>{{ entretien.idEntretien }}</td>
-                <td>{{ entretien.idCandidat }}</td>
+
                 <td>{{ entretien.firstnameCandidat }}</td>
                 <td>{{ entretien.nameCandidat }}</td>
                 <td>{{ entretien.heure }}</td>
                 <td>{{ entretien.personPresent }}</td>
                 <td>{{ entretien.dateEntretien ? entretien.dateEntretien|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_entretien_show', {'idEntretien': entretien.idEntretien}) }}">show</a>
-                    <a href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">edit</a>
+                    <a href="{{ path('app_entretien_show', {'idEntretien': entretien.idEntretien}) }}">Show</a>
+                    <a href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">Edit</a>
+                    <a href="{{ path('app_evaluation_index', {'idEvaluation': evaluation.idEvaluation}) }}">Evaluate</a>
                 </td>
             </tr>
         {% else %}
             <tr>
                 <td colspan="8">no records found</td>
             </tr>
+        {% endfor %}
         {% endfor %}
         </tbody>
     </table>

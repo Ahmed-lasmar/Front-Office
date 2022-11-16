@@ -25,84 +25,84 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Nom", type="string", length=255, nullable=false,unique=false)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Prenom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Prenom", type="string", length=255, nullable=true,unique=false)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Cin", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Cin", type="string", length=255, nullable=true)
      */
     private $cin;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="URL_Photo", type="string", length=255, nullable=false)
+     * @ORM\Column(name="URL_Photo", type="string", length=255, nullable=true)
      */
     private $urlPhoto;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Date_de_naissance", type="date", nullable=false)
+     * @ORM\Column(name="Date_de_naissance", type="date", nullable=true,unique=false)
      */
     private $dateDeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Num_Tel", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Num_Tel", type="string", length=255, nullable=true)
      */
     private $numTel;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Date_embauche", type="date", nullable=true)
+     * @ORM\Column(name="Date_embauche", type="date", nullable=true,unique=false)
      */
     private $dateEmbauche;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Grade", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Grade", type="string", length=255, nullable=true,unique=false)
      */
     private $grade;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Equipe", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Equipe", type="string", length=255, nullable=true,unique=false)
      */
     private $equipe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Role", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Role", type="string", length=255, nullable=true,unique=false)
      */
     private $role;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=255, nullable=false)
+     * @ORM\Column(name="mdp", type="string", length=255, nullable=true,unique=false)
      */
     private $mdp;
 

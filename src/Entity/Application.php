@@ -55,7 +55,7 @@ class Application
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      */
-    private $date ;
+    private $date;
 
     public function getIdApp(): ?int
     {

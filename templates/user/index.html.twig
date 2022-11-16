@@ -9,7 +9,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Iduser</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
@@ -21,14 +20,12 @@
                 <th>Grade</th>
                 <th>Equipe</th>
                 <th>Role</th>
-                <th>Mdp</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.iduser }}</td>
                 <td>{{ user.nom }}</td>
                 <td>{{ user.prenom }}</td>
                 <td>{{ user.email }}</td>
@@ -40,7 +37,6 @@
                 <td>{{ user.grade }}</td>
                 <td>{{ user.equipe }}</td>
                 <td>{{ user.role }}</td>
-                <td>{{ user.mdp }}</td>
                 <td>
                     <a href="{{ path('app_user_show', {'iduser': user.iduser}) }}">show</a>
                     <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}">edit</a>

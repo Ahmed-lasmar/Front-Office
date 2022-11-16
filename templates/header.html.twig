@@ -2,7 +2,7 @@
 <header id="header" class="fixed-top " style="background-color: #0a0e14">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-        <h1 class="logo me-auto me-lg-0"><a href="">WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
+        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -35,7 +35,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-        <a href="#about" class="get-started-btn scrollto">Get Started</a>
+        <a href={{ path("app_login")}} class="get-started-btn scrollto">Login</a>
 
     </div>
 </header><!-- End Header -->
