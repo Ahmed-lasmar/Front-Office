@@ -342,6 +342,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         // TODO: Implement @method string getUserIdentifier()
     }
+
     /**
      * @return mixed
      */
@@ -357,3 +358,6 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         $this->reset_token = $reset_token;
     }
 }
+
+
+

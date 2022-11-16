@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entretien;
+use App\Entity\Evaluation;
 use App\Form\EntretienType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +20,13 @@ class EntretienController extends AbstractController
         $entretiens = $entityManager
             ->getRepository(Entretien::class)
             ->findAll();
+        $evaluation = $entityManager
+            ->getRepository(Evaluation::class)
+            ->findAll();
 
         return $this->render('entretien/index.html.twig', [
             'entretiens' => $entretiens,
+            'evaluations' => $evaluation,
         ]);
     }
 
