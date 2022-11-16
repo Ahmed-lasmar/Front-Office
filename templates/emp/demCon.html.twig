@@ -1,0 +1,53 @@
+{% extends 'Emp.html.twig' %}
+
+{% block title %}New Conge{% endblock %}
+
+{% block body %}
+    <h1>Create new Conge</h1>
+
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+    <table>
+        <tr>
+            <td>
+                {{ form_label(form.ddepot) }}
+            </td>
+            <td>
+                {{ form_widget(form.ddepot) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.typedemande) }}
+            </td>
+            <td>
+                {{ form_widget(form.typedemande) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.ddepart) }}
+            </td>
+            <td>
+                {{ form_widget(form.ddepart) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.dretour) }}
+            </td>
+            <td>
+                {{ form_widget(form.dretour) }}
+            </td>
+        </tr>
+
+        <tr><td></td><td>
+                <button class="btn">{{ button_label|default('Save') }}</button>
+            </td></tr>
+    </table>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_conge_index') }}">back to list</a>
+{% endblock %}
