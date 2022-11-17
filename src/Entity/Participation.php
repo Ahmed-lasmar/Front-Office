@@ -20,6 +20,7 @@ class Participation
     private $idevent;
 
     /**
+     *@Assert\NotBlank(message="L'id doit etre non vide")
      * @var int
      *
      * @ORM\Column(name="idParticipation", type="integer", nullable=false)
@@ -29,6 +30,7 @@ class Participation
     private $idparticipation;
 
     /**
+     *@Assert\NotBlank(message="L'id doit etre non vide")
      * @var int
      *
      * @ORM\Column(name="idUser", type="integer", nullable=false)
@@ -36,6 +38,10 @@ class Participation
     private $iduser;
 
     /**
+     *@Assert\NotBlank(message="L'email doit etre non vide")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      * @var string
      *
      * @ORM\Column(name="Pmail", type="string", length=30, nullable=false)

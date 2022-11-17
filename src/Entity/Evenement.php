@@ -22,6 +22,7 @@ class Evenement
     private $idevent;
 
     /**
+     *@Assert\NotBlank(message="L'id doit etre non vide")
      * @var int
      *
      * @ORM\Column(name="idUser", type="integer", nullable=false)
@@ -29,6 +30,7 @@ class Evenement
     private $iduser;
 
     /**
+     *@Assert\NotBlank(message="L'id doit etre non vide")
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=20, nullable=false)
@@ -36,6 +38,13 @@ class Evenement
     private $type;
 
     /**
+     *@Assert\NotBlank(message="Le type de match doit etre non vide")
+     *@Assert\Length(
+     * min = 4,
+     * max = 15,
+     * minMessage="L'email doit etre >=4",
+     * maxMessage="L'email doit etre <=15"
+     *   )
      * @var string
      *
      * @ORM\Column(name="dateEvent", type="string", length=20, nullable=false)
@@ -43,6 +52,13 @@ class Evenement
     private $dateevent;
 
     /**
+     *@Assert\NotBlank(message="La date doit etre non vide")
+     *@Assert\Length(
+     * min = 10,
+     * max = 10,
+     * minMessage="La date est incorrecte",
+     * maxMessage="La date est incorrecte yyyy-mm-dd"
+     *   )
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=20, nullable=false)
