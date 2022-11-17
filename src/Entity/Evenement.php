@@ -38,12 +38,12 @@ class Evenement
     private $type;
 
     /**
-     *@Assert\NotBlank(message="Le type de match doit etre non vide")
+     *@Assert\NotBlank(message="La date doit etre non vide")
      *@Assert\Length(
-     * min = 4,
-     * max = 15,
-     * minMessage="L'email doit etre >=4",
-     * maxMessage="L'email doit etre <=15"
+     * min = 10,
+     * max = 10,
+     * minMessage="La date est incorrecte",
+     * maxMessage="La date est incorrecte yyyy-mm-dd"
      *   )
      * @var string
      *
