@@ -1,4 +1,42 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+<table class="col-sm-10">
+    <tr>
+        <td>
+            {{ form_label(form.firstnameCandidat) }}
+        </td>
+        <td>
+
+            {{ form_widget(form.firstnameCandidat,{'attr':{'class':'form-control'}}) }}
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.nameCandidat) }}
+        </td>
+        <td>
+            {{ form_widget(form.nameCandidat) }}
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.heure) }}
+        </td>
+        <td>
+            {{ form_widget(form.heure,{'attr':{'class':'form-control'}}) }}
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.personPresent) }}
+        </td>
+        <td>
+            {{ form_widget(form.personPresent,{'attr':{'class':'form-control'}}) }}
+        </td>
+
+    </tr>
+</table>
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
