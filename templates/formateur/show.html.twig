@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formateur{% endblock %}
+
+{% block body %}
+    <h1>Formateur</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>idFormateur</th>
+            <td>{{ formateur.idFormateur }}</td>
+        </tr>
+        <tr>
+            <th>nom</th>
+            <td>{{ formateur.nom }}</td>
+        </tr>
+        <tr>
+            <th>prenom</th>
+            <td>{{ formateur.prenom }}</td>
+        </tr>
+        <tr>
+            <th>adresse</th>
+            <td>{{ formateur.adresse }}</td>
+        </tr>
+        <tr>
+            <th>email</th>
+            <td>{{ formateur.email }}</td>
+        </tr>
+        <tr>
+            <th>email</th>
+            <td>{{ formateur.email }}</td>
+        </tr>
+        <tr>
+            <th>tel</th>
+            <td>{{ formateur.tel }}</td>
+        </tr>
+        <tr>
+            <th>codep</th>
+            <td>{{ formateur.codep }}</td>
+        </tr>
+        <tr>
+            <th>ville</th>
+            <td>{{ formateur.ville }}</td>
+        </tr>
+        <tr>
+            <th>pays</th>
+            <td>{{ formateur.pays }}</td>
+        </tr>
+        <tr>
+            <th>status</th>
+            <td>{{ formateur.status }}</td>
+        </tr>
+        <tr>
+            <th>tarif</th>
+            <td>{{ formateur.tarif }}</td>
+        </tr>
+        <tr>
+            <th>tva</th>
+            <td>{{ formateur.tva }}</td>
+        </tr>
+        <tr>
+            <th>bio</th>
+            <td>{{ formateur.bio }}</td>
+        </tr>
+        <tr>
+            <th>diplome</th>
+            <td>{{ formateur.diplome }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_formateur_index') }}">back to list</a>
+    <a href="{{ path('app_formateur_edit', {'idFormateur': formateur.idFormateur}) }}">edit</a>
+    {{ include('formateur/_delete_form.html.twig') }}
+
+
+
+
+{% endblock %}
