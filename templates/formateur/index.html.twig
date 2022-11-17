@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formateur index{% endblock %}
+
+{% block body %}
+    <h1>Formateur index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>idFormateur</th>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>adresse</th>
+            <th>email</th>
+            <th>tel</th>
+            <th>codep</th>
+            <th>ville</th>
+            <th>pays</th>
+            <th>status</th>
+            <th>tarif</th>
+            <th>tva</th>
+            <th>bio</th>
+            <th>diplome</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for formateur in formateur %}
+            <tr>
+                <td>{{ formateur.idFormateur }}</td>
+                <td>{{ formateur.nom }}</td>
+                <td>{{ formateur.prenom }}</td>
+                <td>{{ formateur.adresse }}</td>
+                <td>{{ formateur.email }}</td>
+                <td>{{ formateur.tel }}</td>
+                <td>{{ formateur.codep }}</td>
+                <td>{{ formateur.ville }}</td>
+                <td>{{ formateur.pays }}</td>
+                <td>{{ formateur.status }}</td>
+                <td>{{ formateur.tarif }}</td>
+                <td>{{ formateur.tva }}</td>
+                <td>{{ formateur.bio }}</td>
+                <td>{{ formateur.diplome }}</td>
+                <td>
+                    <a href="{{ path('app_formateur_show', {'idFormateur': formateur.idFormateur}) }}">show</a>
+                    <a href="{{ path('app_formateur_edit', {'idFormateur': formateur.idFormateur}) }}">edit</a>
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_formateur_new') }}">Create new</a>
+
+
+{% endblock %}
