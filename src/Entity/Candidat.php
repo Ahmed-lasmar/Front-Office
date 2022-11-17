@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Candidat
@@ -24,13 +25,19 @@ class Candidat
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" competences doit etre non vide")
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage=" Entrer un lien au mini de 20 caracteres"
      *
+     *     )
      * @ORM\Column(name="URL_CV", type="string", length=255, nullable=false)
      */
     private $urlCv;
 
     /**
      * @var \DateTime
+     * @Assert\NotBlank(message=" doit etre non vide")
      *
      * @ORM\Column(name="D_Post", type="date", nullable=false)
      */
@@ -38,7 +45,12 @@ class Candidat
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" competences doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" competence doit etre superieur à 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="Competence", type="string", length=255, nullable=false)
      */
     private $competence;
