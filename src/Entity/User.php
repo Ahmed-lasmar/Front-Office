@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -24,29 +25,49 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" Nom doit etre non vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage=" Entrer un nom au mini de 3 caracteres"
      *
+     *     )
      * @ORM\Column(name="Nom", type="string", length=255, nullable=false,unique=false)
      */
     private $nom;
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" titre doit etre non vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage=" Entrer un Prenom au mini de 3 caracteres"
      *
+     *     )
      * @ORM\Column(name="Prenom", type="string", length=255, nullable=true,unique=false)
      */
     private $prenom;
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" Email doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer un email au mini de 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Cin", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="CIN  doit etre non vide")
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 9,
+     *      minMessage = "doit etre 8 ",
+     *      maxMessage = "doit etre 8" )
+     * @ORM\Column(name="Cin", type="string", length=255)
      */
     private $cin;
 
@@ -59,8 +80,9 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message="Date_de_naissance  doit etre non vide")
      * @ORM\Column(name="Date_de_naissance", type="date", nullable=true,unique=false)
+     *
      */
     private $dateDeNaissance;
 
@@ -68,6 +90,12 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @var string
      *
      * @ORM\Column(name="Num_Tel", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Num Tel  doit etre non vide")
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 13,
+     *      minMessage = "doit etre min 8 ",
+     *      maxMessage = "doit etre max 13" )
      */
     private $numTel;
 
@@ -75,6 +103,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @var \DateTime
      *
      * @ORM\Column(name="Date_embauche", type="date", nullable=true,unique=false)
+     * @Assert\Date
      */
     private $dateEmbauche;
 
@@ -107,8 +136,17 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     private $mdp;
 
     /**
+     * @ORM\Column(type="string", length=180, nullable=true,unique=false )
+     */
+    private $reset_token;
+
+    #[ORM\OneToMany(targetEntity: Conge::class, mappedBy: 'user')]
+    private $conges;
+
+    /**
      * @param int $iduser
      */
+
     public function setIduser(int $iduser): void
     {
         $this->iduser = $iduser;
@@ -308,4 +346,22 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         // TODO: Implement @method string getUserIdentifier()
     }
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
 }
+
+
+

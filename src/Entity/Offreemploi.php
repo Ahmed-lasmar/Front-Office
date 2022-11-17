@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Offreemploi
@@ -23,28 +24,48 @@ class Offreemploi
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" nom offre doit etre non vide")
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage=" Entrer nom min 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="nomOffre", type="string", length=50, nullable=false)
      */
     private $nomoffre;
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" description doit etre non vide")
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage=" Entrer description min 20 caracteres"
      *
+     *     )
      * @ORM\Column(name="description", type="string", length=50, nullable=false)
      */
     private $description;
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" skills doit etre non vide")
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage=" Entrer skills min 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="skills", type="string", length=50, nullable=false)
      */
     private $skills;
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" lien picture doit etre non vide")
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage=" Entrer un lien picture au mini de 20 caracteres"
      *
+     *     )
      * @ORM\Column(name="picture", type="string", length=50, nullable=false)
      */
     private $picture;

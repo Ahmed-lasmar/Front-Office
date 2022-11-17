@@ -10,7 +10,7 @@
             <a class="nav-link" data-widget="pushmenu" href={{ asset("#")}} role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href={{ path("app_user_index")}} class="nav-link">Home</a>
+            <a href={{ path("app_main_emp")}} class="nav-link">Home</a>
         </li>
     </ul>
 {% endblock %}
@@ -80,7 +80,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href={{ path('app_conge_emp', {'iduser': app.user.iduser}) }}">
+                        <a href={{ path('app_conge_emp') }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Demande de conge</p>
                         </a>

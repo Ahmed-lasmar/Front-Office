@@ -55,8 +55,8 @@ class EmpController extends AbstractController
 
         return $this->render('emp/conFdP.html.twig');
     }
-    #[Route('/{iduser}/conge', name: 'app_conge_emp', methods: ['GET', 'POST'])]
-    public function newCon(Request $request,User $user, EntityManagerInterface $entityManager): Response
+    #[Route('/conge', name: 'app_conge_emp', methods: ['GET', 'POST'])]
+    public function newCon(Request $request, EntityManagerInterface $entityManager): Response
     {
         $conge = new Conge();
 
