@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Evaluation
@@ -13,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Evaluation
 {
     /**
+     *
      * @var int
      *
      * @ORM\Column(name="id_evaluation", type="integer", nullable=false)
@@ -29,6 +32,8 @@ class Evaluation
     private $idEntretien;
 
     /**
+     * @Assert\NotBlank(message="Connot be Blanc")
+     *
      * @var int|null
      *
      * @ORM\Column(name="note", type="integer", nullable=true)

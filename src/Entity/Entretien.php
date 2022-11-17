@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Entretien
@@ -30,6 +32,11 @@ class Entretien
     private $idCandidat;
 
     /**
+     * @Assert\NotBlank(message="Please fill Firstname label")
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="Firstname must have at least 2 character"
+     * )
      * @var string
      *
      * @ORM\Column(name="firstname_candidat", type="string", length=200, nullable=false)
@@ -37,6 +44,11 @@ class Entretien
     private $firstnameCandidat;
 
     /**
+     * @Assert\NotBlank(message="Please fill Name label")
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="Name must have at least 2 character"
+     * )
      * @var string
      *
      * @ORM\Column(name="name_candidat", type="string", length=200, nullable=false)
@@ -44,6 +56,8 @@ class Entretien
     private $nameCandidat;
 
     /**
+     * @Assert\NotBlank(message="Please fill Date label")
+     *
      * @var string
      *
      * @ORM\Column(name="heure", type="string", length=200, nullable=false)
@@ -51,6 +65,11 @@ class Entretien
     private $heure;
 
     /**
+     * @Assert\NotBlank(message="Connot be Blanc")
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="Name must have at least 2 character"
+     * )
      * @var string
      *
      * @ORM\Column(name="person_present", type="string", length=200, nullable=false)
