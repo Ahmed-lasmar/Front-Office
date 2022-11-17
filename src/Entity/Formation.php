@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Formation
@@ -24,6 +25,7 @@ class Formation
 
     /**
      * @var int
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="Id_Formateur", type="integer", nullable=false)
      */
@@ -31,6 +33,7 @@ class Formation
 
     /**
      * @var \DateTime
+     * @Assert\NotBlank(message="la date doit etre non vide")
      *
      * @ORM\Column(name="Date_For", type="date", nullable=false)
      */
@@ -38,6 +41,13 @@ class Formation
 
     /**
      * @var string
+     * @Assert\NotBlank(message="nom doit etre non vide")
+     * @Assert\Length (
+     *     min=3,
+     *     max=20,
+     *     minMessage="doit etre >=3",
+     *     maxMessage="doit etre<=20" )
+     *
      *
      * @ORM\Column(name="Nom_For", type="string", length=255, nullable=false)
      */
@@ -45,6 +55,10 @@ class Formation
 
     /**
      * @var int
+     * @Assert\NotBlank (message="num doit etre nom vide")
+     * @Assert\GreaterThanOrEqual(
+     *   message = "Le nombre doit être supérieure à 15.",
+     *   value = 15)
      *
      * @ORM\Column(name="Numbr_Max_Per", type="integer", nullable=false)
      */

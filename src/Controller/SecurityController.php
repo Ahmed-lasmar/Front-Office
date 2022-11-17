@@ -2,9 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ForgotPasswordType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Swift_Mailer;
+use Swift_Message;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -85,7 +94,7 @@ class SecurityController extends AbstractController
 
             //BUNDLE MAILER
             $message = (new Swift_Message('Mot de password oublié'))
-                ->setFrom('formationSymfony4@gmail.com')
+                ->setFrom('chadi.troudi@esprit.tn')
                 ->setTo($user->getEmail())
                 ->setBody("<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
                     "text/html");

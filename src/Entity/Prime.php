@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Prime
  *
@@ -24,21 +24,21 @@ class Prime
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message=" Type de Prime  doit etre non vide")
      * @ORM\Column(name="Type_Prime", type="string", length=255, nullable=false)
      */
     private $typePrime;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message=" Valeur de Prime  doit etre non vide")
      * @ORM\Column(name="Valeur_Prime", type="integer", nullable=false)
      */
     private $valeurPrime;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message=" Date de Prime  doit etre non vide")
      * @ORM\Column(name="Date_Prime", type="date", nullable=false)
      */
     private $datePrime;

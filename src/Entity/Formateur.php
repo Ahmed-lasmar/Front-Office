@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Formateur
@@ -23,12 +24,24 @@ class Formateur
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="nom doit etre non vide")
+     * @Assert\Length (
+     *     min=3,
+     *     max=20,
+     *     minMessage="doit etre >=3",
+     *     maxMessage="doit etre<=20" )
+
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="prenom doit etre non vide")
+     * @Assert\Length (
+     *     min=3,
+     *     max=20,
+     *     minMessage="doit etre >=3",
+     *     maxMessage="doit etre<=20" )
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
@@ -37,27 +50,36 @@ class Formateur
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="nom doit etre non vide")
      * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
     private $adresse;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="nom doit etre non vide")
+     * @Assert\Email
+     *
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
+     * @Assert\NotBlank(message="nom doit etre non vide")
      * @var int
-     *
+     * @Assert\Length (
+     *     min=7,
+     *     max=7,
+     *     minMessage="doit etre >=7",
+     *     maxMessage="doit etre<=7" )
      * @ORM\Column(name="tel", type="integer", nullable=false)
      */
     private $tel;
 
     /**
      * @var int
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="codeP", type="integer", nullable=false)
      */
@@ -65,6 +87,7 @@ class Formateur
 
     /**
      * @var string
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="ville", type="string", length=255, nullable=false)
      */
@@ -72,6 +95,7 @@ class Formateur
 
     /**
      * @var string
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="pays", type="string", length=255, nullable=false)
      */
@@ -79,6 +103,7 @@ class Formateur
 
     /**
      * @var string
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="status", type="string", length=255, nullable=false)
      */
@@ -86,6 +111,7 @@ class Formateur
 
     /**
      * @var int
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="tarif", type="integer", nullable=false)
      */
@@ -93,6 +119,7 @@ class Formateur
 
     /**
      * @var int
+     * @Assert\NotBlank(message="nom doit etre non vide")
      *
      * @ORM\Column(name="tva", type="integer", nullable=false)
      */
@@ -100,14 +127,14 @@ class Formateur
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="nom doit etre non vide")
      * @ORM\Column(name="bio", type="string", length=255, nullable=false)
      */
     private $bio;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="nom doit etre non vide")
      * @ORM\Column(name="diplome", type="string", length=255, nullable=false)
      */
     private $diplome;
