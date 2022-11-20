@@ -11,9 +11,9 @@
 
                 <th>Firstname</th>
                 <th>Name</th>
+                <th>Date</th>
                 <th>Heure</th>
                 <th>Present Person</th>
-                <th>Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,9 +24,10 @@
 
                 <td>{{ entretien.firstnameCandidat }}</td>
                 <td>{{ entretien.nameCandidat }}</td>
+                <td>{{ entretien.dateEntretien ? entretien.dateEntretien|date('Y-m-d') : '' }}</td>
                 <td>{{ entretien.heure }}</td>
                 <td>{{ entretien.personPresent }}</td>
-                <td>{{ entretien.dateEntretien ? entretien.dateEntretien|date('Y-m-d') : '' }}</td>
+
                 <td>
                     <a href="{{ path('app_entretien_show', {'idEntretien': entretien.idEntretien}) }}">Show</a>
                     <a href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">Edit</a>
