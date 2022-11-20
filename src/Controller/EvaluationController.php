@@ -83,4 +83,10 @@ class EvaluationController extends AbstractController
 
         return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/note', name: 'note')]
+    public function note(): Response
+    {
+
+        return $this->render('evaluation/note.html.twig');
+    }
 }
