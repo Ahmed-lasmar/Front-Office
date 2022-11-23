@@ -55,7 +55,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      *      minMessage=" Entrer un email au mini de 5 caracteres"
      *
      *     )
-     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Email", type="string", length=255, nullable=true,unique=false)
      */
     private $email;
 
@@ -67,7 +67,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      *      max = 9,
      *      minMessage = "doit etre 8 ",
      *      maxMessage = "doit etre 8" )
-     * @ORM\Column(name="Cin", type="string", length=255)
+     * @ORM\Column(name="Cin", type="string", length=255,unique=false)
      */
     private $cin;
 
@@ -89,7 +89,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="Num_Tel", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Num_Tel", type="string", length=255, nullable=true,unique=false)
      * @Assert\NotBlank(message="Num Tel  doit etre non vide")
      * @Assert\Length(
      *      min = 8,
@@ -103,7 +103,6 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @var \DateTime
      *
      * @ORM\Column(name="Date_embauche", type="date", nullable=true,unique=false)
-     * @Assert\Date
      */
     private $dateEmbauche;
 
