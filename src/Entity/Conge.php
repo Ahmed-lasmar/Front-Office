@@ -27,42 +27,42 @@ class Conge
     /**
      * @var int
      *
-     * @ORM\Column(name="idPer", type="integer", nullable=false)
+     * @ORM\Column(name="idPer", type="integer", nullable=false,unique=false)
      */
     private $idper;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dDepot", type="date", nullable=false)
+     * @ORM\Column(name="dDepot", type="date", nullable=false,unique=false)
      */
     private $ddepot;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="typeDemande", type="string", length=255, nullable=false)
+     * @ORM\Column(name="typeDemande", type="string", length=255, nullable=false,unique=false)
      */
     private $typedemande;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etatDemande", type="string", length=255, nullable=false)
+     * @ORM\Column(name="etatDemande", type="string", length=255, nullable=false,unique=false)
      */
     private $etatdemande;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dDepart", type="date", nullable=false)
+     * @ORM\Column(name="dDepart", type="date", nullable=false,unique=false)
      */
     private $ddepart;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dRetour", type="date", nullable=false)
+     * @ORM\Column(name="dRetour", type="date", nullable=false,unique=false)
      */
     private $dretour;
 
