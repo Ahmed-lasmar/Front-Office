@@ -56,13 +56,14 @@ class EmpController extends AbstractController
         return $this->render('emp/conFdP.html.twig');
     }
     #[Route('/conge', name: 'app_conge_emp', methods: ['GET', 'POST'])]
-    public function newCon(Request $request, EntityManagerInterface $entityManager): Response
+    public function newCon(Request $request,EntityManagerInterface $entityManager): Response
     {
         $conge = new Conge();
 
         $form = $this->createForm(DemConType::class, $conge);
         $form->handleRequest($request);
-
+        $conge->setIdper($request->get('iduser'));
+        $conge->setEtatdemande("en cour de traitement");
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($conge);
