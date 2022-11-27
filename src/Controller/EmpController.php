@@ -8,6 +8,7 @@ use App\Entity\Formation;
 use App\Entity\User;
 use App\Form\CongeType;
 use App\Form\DemConType;
+use App\Repository\EmpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,12 +70,23 @@ class EmpController extends AbstractController
             $entityManager->persist($conge);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_conge_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('my_conge_emp', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('emp/demCon.html.twig', [
             'conge' => $conge,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/myConge', name: 'my_conge_emp', methods: ['GET'])]
+    public function myConge(Request $request,EmpRepository $rep): Response
+    {
+        $conges = $rep->findByCongeByPer($request->get('iduser'));
+        //$conges = $rep->findByCongeByPer('2');
+
+        return $this->render('emp/zmpMyConge.html.twig', [
+            'conges' => $conges,
         ]);
     }
 }
