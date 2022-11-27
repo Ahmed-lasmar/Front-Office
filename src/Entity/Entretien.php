@@ -84,13 +84,6 @@ class Entretien
     private $dateEntretien;
 
 
-    /**
-     * @ORM\OneToOne(targetEntity=Evaluation::class,inversedBy="entretien", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id_evaluation")
-     */
-    private $evaluation;
-
-
 
 
     /**

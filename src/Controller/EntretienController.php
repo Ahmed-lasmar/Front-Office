@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Controller;
 
 use App\Entity\Entretien;
@@ -7,14 +9,30 @@ use App\Entity\Evaluation;
 use App\Form\EntretienType;
 use App\Form\EvaluationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/entretien')]
 class EntretienController extends AbstractController
 {
+    #[Route('/email', name: 'email')]
+    public function forgotPassword(Swift_Mailer $mailer, Request $request): Response
+    {
+        $email = (new Swift_Message('Mot de password oublié'))
+            ->setFrom('chadi.troudi@esprit.tn')
+            ->setTo('racem.benamar@esprit.tn')
+            ->setBody("<p> Bonjour ".$request->get('name')." </p>Votre entretien sera fixée au date: ".$request->get('date')." à ".$request->get('heure')."<p>Cordialement,</p>",
+                "text/html");
+        $mailer->send($email);
+        $this->addFlash('message','E-mail  de réinitialisation du mp envoyé :');
+        return $this->redirectToRoute('app_entretien_index');
+    }
+
     #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
     public function note(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -61,7 +79,6 @@ class EntretienController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($entretien);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -90,7 +107,6 @@ class EntretienController extends AbstractController
 
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('entretien/edit.html.twig', [
             'entretien' => $entretien,
             'form' => $form,
@@ -104,9 +120,7 @@ class EntretienController extends AbstractController
             $entityManager->remove($entretien);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
 }
+

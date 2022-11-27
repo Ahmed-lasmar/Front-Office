@@ -47,13 +47,6 @@ class Evaluation
      */
     private $avis;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Entretien::class, mappedBy="evaluation", cascade={"persist", "remove"})
-     */
-    private $entretien;
-
-
-
 
 
 

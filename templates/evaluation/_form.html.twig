@@ -1,6 +1,7 @@
 {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
 <table class="col-sm-10">
 
+
     <tr>
         <td>
             <h1>Note d'évaluation</h1>
@@ -84,36 +85,40 @@
                         <div class="form-group">
                             <label for="note">Total des point</label>
 
-                            {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}
+                            <input id="sum" {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}>
                         </div>
-                    </fieldset>
+                        <script>
+                            function somme(){
+                                var Connaisance, Formation,Outil,Travail,Experience,Competance,sum;
+                                Connaisance = Number(document.getElementById("Connaisance").value);
+                                Formation = Number(document.getElementById("Formation").value);
+                                Outil = Number(document.getElementById("Outil").value);
+                                Travail = Number(document.getElementById("Travail").value);
+                                Experience = Number(document.getElementById("Experience").value);
+                                Competance = Number(document.getElementById("Competance").value);
+                                sum = Connaisance+Formation+Outil+Travail+Experience+Competance;
+                                document.getElementById("sum").value = sum;
+                            }
+                        </script>
 
-                </form>
 
-                <script>
-                    function somme(){
-                        var Connaisance, Formation,Outil,Travail,Experience,Competance,sum;
-                        Connaisance = Number(document.getElementById("Connaisance").value);
-                        Formation = Number(document.getElementById("Formation").value);
-                        Outil = Number(document.getElementById("Outil").value);
-                        Travail = Number(document.getElementById("Travail").value);
-                        Experience = Number(document.getElementById("Experience").value);
-                        Competance = Number(document.getElementById("Competance").value);
-                        sum = Connaisance+Formation+Outil+Travail+Experience+Competance;
-                        document.getElementById("sum").value = sum;
-                    }
-                </script>
+
+
+
                 <a class="btn btn-primary"  role="button" onclick="somme()" class="btn btn-default" name="submit" type="submit">Calculate</a>
 
+               <div>
+                   {{ form_label(form.avis) }}
 
-                {{ form_label(form.avis) }}
-
-                 {{ form_widget(form.avis,{'attr':{'class':'form-control'}}) }}
+                   {{ form_widget(form.avis,{'attr':{'class':'form-control'}}) }}
+               </div>
 
                 <a class="btn btn-primary"  role="button" href="{{ path('app_evaluation_index') }}">Evaluate</a>
+                    </fieldset>
+                </form>
+            </div>
 
         </td>
-
 
     </tr>
     </table>

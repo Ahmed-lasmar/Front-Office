@@ -103,9 +103,6 @@ class SecurityController extends AbstractController
             $mailer->send($message);
             $this->addFlash('message','E-mail  de réinitialisation du mp envoyé :');
             //    return $this->redirectToRoute("app_login");
-
-
-
         }
 
         return $this->render("security/forgotPassword.html.twig",['form'=>$form->createView()]);
