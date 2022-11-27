@@ -80,9 +80,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href={{ path('app_conge_emp') }}">
+                        <a href={{ path("app_conge_emp" , {'iduser': app.user.iduser})}}>
                         <i class="far fa-circle nav-icon"></i>
                         <p>Demande de conge</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href={{ path("my_conge_emp" , {'iduser': app.user.iduser})}}>
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Mes conges</p>
                         </a>
                     </li>
 

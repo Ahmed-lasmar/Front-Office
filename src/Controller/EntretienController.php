@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Entretien;
 use App\Entity\Evaluation;
 use App\Form\EntretienType;
+use App\Form\EvaluationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,26 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/entretien')]
 class EntretienController extends AbstractController
 {
+    #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
+    public function note(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $evaluation = new Evaluation();
+        $form = $this->createForm(EvaluationType::class, $evaluation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($evaluation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('evaluation/note.html.twig', [
+            'evaluation' => $evaluation,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/', name: 'app_entretien_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {

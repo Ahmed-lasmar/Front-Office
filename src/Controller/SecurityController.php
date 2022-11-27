@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ForgotPasswordType;
-use App\Repository\UserRepository;
+use App\Repository\EmpRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +56,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/forgot", name="forgot")
      */
-    public function forgotPassword(Request $request, UserRepository $userRepository,Swift_Mailer $mailer, TokenGeneratorInterface  $tokenGenerator)
+    public function forgotPassword(Request $request, EmpRepository $userRepository, Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
     {
 
 
