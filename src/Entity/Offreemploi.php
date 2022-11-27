@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -70,6 +72,16 @@ class Offreemploi
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="offreemploi",cascade={"persist"})
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
+
     public function getIdOffre(): ?int
     {
         return $this->idOffre;
@@ -119,6 +131,36 @@ class Offreemploi
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setOffreemploi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getOffreemploi() === $this) {
+                $image->setOffreemploi(null);
+            }
+        }
 
         return $this;
     }
