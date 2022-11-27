@@ -83,18 +83,7 @@ class Entretien
      */
     private $dateEntretien;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Candidat::class, cascade={"persist", "remove"}, inversedBy="entretien")
-     */
-    protected $candidat;
 
-
-
-
-    /**
-     * @ORM\OneToOne(targetEntity=Evaluation::class, mappedBy="entretien")
-     */
-    protected $evaluationn;
 
     /**
      * @return mixed

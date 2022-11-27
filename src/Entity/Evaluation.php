@@ -47,10 +47,7 @@ class Evaluation
      */
     private $avis;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Entretien::class, cascade={"persist", "remove"}, inversedBy="evaluation")
-     */
-    protected $entretien;
+
 
     /**
      * @return mixed
