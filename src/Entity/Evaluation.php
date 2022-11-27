@@ -47,6 +47,28 @@ class Evaluation
      */
     private $avis;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Entretien::class, cascade={"persist", "remove"}, inversedBy="evaluation")
+     */
+    protected $entretien;
+
+    /**
+     * @return mixed
+     */
+    public function getEntretien()
+    {
+        return $this->entretien;
+    }
+
+    /**
+     * @param mixed $entretien
+     */
+    public function setEntretien($entretien): void
+    {
+        $this->entretien = $entretien;
+    }
+
+
     public function getIdEvaluation(): ?int
     {
         return $this->idEvaluation;
