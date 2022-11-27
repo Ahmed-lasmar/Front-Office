@@ -1,14 +1,9 @@
 {% extends 'RRH.html.twig' %}
 
-{% block title %}Edit Evaluation{% endblock %}
+{% block title %}Evaluation{% endblock %}
 
 {% block body %}
-    <h1>Edit Evaluation</h1>
+    {{ include('evaluation/_form.html.twig') }}
+    <a class="btn btn-default"  role="button" href="{{ path('app_entretien_index') }}">back to list</a>
 
-    {{ include('evaluation/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_evaluation_index') }}">back to list</a>
-
-    {{ include('evaluation/_delete_form.html.twig') }}
 {% endblock %}
-s
