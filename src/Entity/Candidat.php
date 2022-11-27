@@ -53,6 +53,13 @@ class Candidat
      *     )
      * @ORM\Column(name="Competence", type="string", length=255, nullable=false)
      */
+
+    /**
+     * @ORM\OneToOne(targetEntity=Entretien::class, mappedBy="candidat")
+     */
+    protected $entretien;
+
+
     private $competence;
 
     public function getIdCan(): ?int

@@ -1,0 +1,9 @@
+{% extends 'RRH.html.twig' %}
+
+{% block title %}Evaluation{% endblock %}
+
+{% block body %}
+    {{ include('evaluation/_form.html.twig') }}
+    <a class="btn btn-default"  role="button" href="{{ path('app_entretien_index') }}">back to list</a>
+
+{% endblock %}

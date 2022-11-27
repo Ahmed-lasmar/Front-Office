@@ -33,7 +33,7 @@ class RegistrationController extends AbstractController
             $user->setMdp($this->passwordEncoder->encodePassword($user, $user->getmdp()));
 
             // Set their role
-            $user->setRole('Candidat');
+            $user->setRole('ROLE_CANDIDATE');
 
             // Save
             $em = $this->getDoctrine()->getManager();

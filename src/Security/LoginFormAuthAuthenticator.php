@@ -1,7 +1,7 @@
 <?php
 namespace App\Security;
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Repository\EmpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,21 +97,21 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator
 
         $user = $token->getUser();
 
-        if(in_array('admin',$user->getRoles(),true)) {
+        if(in_array('ROLE_ADMIN',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
         }
-        if(in_array('rrh',$user->getRoles(),true)) {
+        if(in_array('ROLE_RRH',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_conge_index'));
         }
-        if(in_array('emp',$user->getRoles(),true)) {
+        if(in_array('ROLE_EMP',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_emp'));
         }
-        if(in_array('Candidat',$user->getRoles(),true)) {
+        if(in_array('ROLE_CANDIDATE',$user->getRoles(),true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_main_can'));
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
+        return new RedirectResponse($this->urlGenerator->generate('app_main'));
     }
 
     protected function getLoginUrl()

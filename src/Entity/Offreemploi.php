@@ -26,7 +26,7 @@ class Offreemploi
      * @var string
      * @Assert\NotBlank(message=" nom offre doit etre non vide")
      * @Assert\Length(
-     *      min = 20,
+     *      min = 5,
      *      minMessage=" Entrer nom min 5 caracteres"
      *
      *     )
@@ -38,7 +38,7 @@ class Offreemploi
      * @var string
      * @Assert\NotBlank(message=" description doit etre non vide")
      * @Assert\Length(
-     *      min = 20,
+     *      min = 5,
      *      minMessage=" Entrer description min 20 caracteres"
      *
      *     )
@@ -50,7 +50,7 @@ class Offreemploi
      * @var string
      * @Assert\NotBlank(message=" skills doit etre non vide")
      * @Assert\Length(
-     *      min = 20,
+     *      min = 5,
      *      minMessage=" Entrer skills min 5 caracteres"
      *
      *     )
@@ -62,7 +62,7 @@ class Offreemploi
      * @var string
      * @Assert\NotBlank(message=" lien picture doit etre non vide")
      * @Assert\Length(
-     *      min = 20,
+     *      min = 5,
      *      minMessage=" Entrer un lien picture au mini de 20 caracteres"
      *
      *     )

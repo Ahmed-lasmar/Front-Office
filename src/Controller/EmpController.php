@@ -8,6 +8,7 @@ use App\Entity\Formation;
 use App\Entity\User;
 use App\Form\CongeType;
 use App\Form\DemConType;
+use App\Repository\EmpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,24 +57,36 @@ class EmpController extends AbstractController
         return $this->render('emp/conFdP.html.twig');
     }
     #[Route('/conge', name: 'app_conge_emp', methods: ['GET', 'POST'])]
-    public function newCon(Request $request, EntityManagerInterface $entityManager): Response
+    public function newCon(Request $request,EntityManagerInterface $entityManager): Response
     {
         $conge = new Conge();
 
         $form = $this->createForm(DemConType::class, $conge);
         $form->handleRequest($request);
-
+        $conge->setIdper($request->get('iduser'));
+        $conge->setEtatdemande("en cour de traitement");
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($conge);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_conge_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('my_conge_emp', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('emp/demCon.html.twig', [
             'conge' => $conge,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/myConge', name: 'my_conge_emp', methods: ['GET'])]
+    public function myConge(Request $request,EmpRepository $rep): Response
+    {
+        $conges = $rep->findByCongeByPer($request->get('iduser'));
+        //$conges = $rep->findByCongeByPer('2');
+
+        return $this->render('emp/zmpMyConge.html.twig', [
+            'conges' => $conges,
         ]);
     }
 }
