@@ -1,4 +1,9 @@
-{% extends 'admin.html.twig' %}
+
+{%  if app.user.role is same as 'ROLE_ADMIN' %}{% extends 'admin.html.twig' %}
+{%  elseif app.user.role is same as 'ROLE_RRH' %}{% extends 'RRH.html.twig' %}
+{%  elseif app.user.role is same as 'ROLE_EMP' %}{% extends 'Emp.html.twig' %}{% endif %}
+
+{% extends app.user.role is same as 'ROLE_ADMIN' ? 'admin.html.twig': 'RRH.html.twig' %}
 
 {% block title %}Modifier Profil de {{  app.user.nom }}{% endblock %}
 
@@ -8,7 +13,7 @@
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {%  if app.user.role is same as 'admin' %}
+    {%  if app.user.role is same as 'ROLE_ADMIN' %}
     <a href="{{ path('app_user_index') }}">back to list</a>
 
     {{ include('user/_delete_form.html.twig') }}
