@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Candidat;
+use App\Entity\Contrat;
+use App\Entity\Offreemploi;
 use App\Form\CandidatType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\Message\SmsMessage;
+use Symfony\Component\Notifier\TexterInterface;
 
 #[Route('/candidat')]
 class CandidatController extends AbstractController
@@ -25,6 +29,19 @@ class CandidatController extends AbstractController
         ]);
     }
 
+    public function loginSuccess(TexterInterface $texter)
+    {
+        $sms = new SmsMessage(
+        // the phone number to send the SMS message to
+            '+21694465555',
+            // the message
+            'A new login was detected!'
+        );
+
+        $sentMessage = $texter->send($sms);
+
+        // ...
+    }
     #[Route('/new', name: 'app_candidat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -35,7 +52,6 @@ class CandidatController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($candidat);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -80,5 +96,24 @@ class CandidatController extends AbstractController
         }
 
         return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function mostWantedSkilldql(EntityManagerInterface $entityManager): array
+    {
+        return $contrats=$entityManager->getRepository(Contrat::class)
+
+            ->createQueryBuilder("oe")
+            //->where('s.nsc= :val')
+            //->andWhere('s.exampleField = :val')
+            //->setParameter('val', $value)
+                ->groupBy("skill")
+            //->orderBy('oe.email', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function mostWantedSkillsql(EntityManagerInterface $entityManager){
+        $query=$entityManager->createQuery('SELECT count(s) FROM App/Entity/Contrat s GROUP BY skill LIMIT 1');
     }
 }
