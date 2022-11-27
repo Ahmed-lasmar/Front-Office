@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ForgotPasswordType;
-use App\Repository\EmpRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +56,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/forgot", name="forgot")
      */
-    public function forgotPassword(Request $request, EmpRepository $userRepository, Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
+    public function forgotPassword(Request $request, UserRepository $userRepository, Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
     {
 
 
@@ -96,8 +96,12 @@ class SecurityController extends AbstractController
             $message = (new Swift_Message('Mot de password oublié'))
                 ->setFrom('chadi.troudi@esprit.tn')
                 ->setTo($user->getEmail())
-                ->setBody("<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
-                    "text/html");
+                ->setBody($this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/reset.html.twig',
+                    ['url' => $url]
+                ),
+                    'text/html');
 
             //send mail
             $mailer->send($message);
@@ -128,7 +132,7 @@ class SecurityController extends AbstractController
         if($request->isMethod('POST')) {
             $user->setResetToken(null);
 
-            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
+            $user->setMdp($passwordEncoder->encodePassword($user,$request->request->get('password')));
             $entityManger = $this->getDoctrine()->getManager();
             $entityManger->persist($user);
             $entityManger->flush();

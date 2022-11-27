@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User2Type;
 use App\Form\User3Type;
+use App\Form\User4Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,7 +87,7 @@ class UserController extends AbstractController
     #[Route('/Profil/{iduser}/edit', name: 'app_user_front_edit', methods: ['GET', 'POST'])]
     public function frontedit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(User3Type::class, $user);
+        $form = $this->createForm(User4Type::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
