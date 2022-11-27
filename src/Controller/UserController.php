@@ -82,4 +82,22 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/Profil/{iduser}/edit', name: 'app_user_front_edit', methods: ['GET', 'POST'])]
+    public function frontedit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(User3Type::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_main_can', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/FrontEdit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
 }
