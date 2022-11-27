@@ -7,14 +7,7 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>IdEvaluation</th>
-                <td>{{ evaluation.idEvaluation }}</td>
-            </tr>
-            <tr>
-                <th>IdEntretien</th>
-                <td>{{ evaluation.idEntretien }}</td>
-            </tr>
+
             <tr>
                 <th>Note</th>
                 <td>{{ evaluation.note }}</td>
@@ -26,9 +19,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_evaluation_index') }}">back to list</a>
+    <a class="btn btn-default"  role="button" href="{{ path('app_evaluation_index') }}">back to list</a>
 
-    <a href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
+    <a class="btn btn-primary"  role="button" href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
 
     {{ include('evaluation/_delete_form.html.twig') }}
 {% endblock %}
