@@ -22,7 +22,7 @@ class Entretien
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idEntretien;
+    protected int $idEntretien;
 
     /**
      * @var int|null
@@ -82,6 +82,14 @@ class Entretien
      * @ORM\Column(name="date_entretien", type="date", nullable=false)
      */
     private $dateEntretien;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity=Evaluation::class,inversedBy="entretien", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id_evaluation")
+     */
+    private $evaluation;
+
 
 
 
@@ -194,6 +202,30 @@ class Entretien
     public function setDateEntretien(\DateTimeInterface $dateEntretien): self
     {
         $this->dateEntretien = $dateEntretien;
+
+        return $this;
+    }
+
+    public function getEvaluation(): ?Evaluation
+    {
+        return $this->evaluation;
+    }
+
+    public function setEvaluation(?Evaluation $evaluation): self
+    {
+        $this->evaluation = $evaluation;
+
+        return $this;
+    }
+
+    public function getEntretien(): ?self
+    {
+        return $this->entretien;
+    }
+
+    public function setEntretien(?self $entretien): self
+    {
+        $this->entretien = $entretien;
 
         return $this;
     }
