@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-
                 <th>Note</th>
                 <th>Avis</th>
                 <th>actions</th>
@@ -21,18 +20,22 @@
 
                 <td>{{ evaluation.note }}</td>
                 <td>{{ evaluation.avis }}</td>
+
                 <td>
-                    <a href="{{ path('app_evaluation_show', {'idEvaluation': evaluation.idEvaluation}) }}">show</a>
-                    <a href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
+                    <a class="btn btn-info"  role="button" href="{{ path('app_evaluation_show', {'idEvaluation': evaluation.idEvaluation}) }}">show</a>
+                    <a class="btn btn-secondary"  role="button" href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
                 </td>
+
             </tr>
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
+
     </table>
 
-    <a href="{{ path('app_evaluation_new') }}">Create new</a>
+    <a class="btn btn-primary"  role="button" href="{{ path('app_evaluation_new') }}">Create new</a>
 {% endblock %}

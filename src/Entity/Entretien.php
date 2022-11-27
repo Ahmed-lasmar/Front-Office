@@ -83,6 +83,44 @@ class Entretien
      */
     private $dateEntretien;
 
+
+
+    /**
+     * @return mixed
+     */
+    public function getEvaluationn()
+    {
+        return $this->evaluationn;
+    }
+
+    /**
+     * @param mixed $evaluationn
+     */
+    public function setEvaluationn($evaluationn): void
+    {
+        $this->evaluationn = $evaluationn;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getCandidat()
+    {
+        return $this->candidat;
+    }
+
+    /**
+     * @param mixed $candidat
+     */
+    public function setCandidat($candidat): void
+    {
+        $this->candidat = $candidat;
+    }
+
+
+
     public function getIdEntretien(): ?int
     {
         return $this->idEntretien;
