@@ -1,9 +1,6 @@
 
-{%  if app.user.role is same as 'ROLE_ADMIN' %}{% extends 'admin.html.twig' %}
-{%  elseif app.user.role is same as 'ROLE_RRH' %}{% extends 'RRH.html.twig' %}
-{%  elseif app.user.role is same as 'ROLE_EMP' %}{% extends 'Emp.html.twig' %}{% endif %}
 
-{% extends app.user.role is same as 'ROLE_ADMIN' ? 'admin.html.twig': 'RRH.html.twig' %}
+{% extends app.user.role is same as 'ROLE_ADMIN' ? 'admin.html.twig' : app.user.role is same as 'ROLE_EMP' ? 'Emp.html.twig' :'RRH.html.twig' %}
 
 {% block title %}Modifier Profil de {{  app.user.nom }}{% endblock %}
 
