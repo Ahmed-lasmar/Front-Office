@@ -35,7 +35,14 @@
         <td>
             {{ form_widget(form.personPresent,{'attr':{'class':'form-control'}}) }}
         </td>
-
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.dateEntretien) }}
+        </td>
+        <td>
+            {{ form_widget(form.dateEntretien,{'attr':{'class':'form-control'}}) }}
+        </td>
     </tr>
 </table>
 <button class="btn btn-primary" >{{ button_label|default('Save') }}</button>
