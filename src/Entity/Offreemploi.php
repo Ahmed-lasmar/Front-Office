@@ -41,7 +41,8 @@ class Offreemploi
      * @Assert\NotBlank(message=" description doit etre non vide")
      * @Assert\Length(
      *      min = 5,
-     *      minMessage=" Entrer description min 20 caracteres"
+     *      minMessage=" Entrer description min 20 caracteres",
+     *     max=500,
      *
      *     )
      * @ORM\Column(name="description", type="string", length=50, nullable=false)

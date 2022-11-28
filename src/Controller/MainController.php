@@ -44,7 +44,7 @@ class MainController extends AbstractController
     #[Route('/portfolioDetails/{idOffre}', name: 'app_details')]
     public function details($idOffre,ImagesRepository $imagesRepository): Response
     {
-        $Offre=$imagesRepository->findByOffre(32);
+        $Offre=$imagesRepository->findByOffre($idOffre);
         return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre]);
     }
 }
