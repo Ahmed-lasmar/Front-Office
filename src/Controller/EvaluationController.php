@@ -22,9 +22,13 @@ class EvaluationController extends AbstractController
         $evaluations = $entityManager
             ->getRepository(Evaluation::class)
             ->findAll();
+        $entretiens = $entityManager
+            ->getRepository(Entretien::class)
+            ->findAll();
 
         return $this->render('evaluation/index.html.twig', [
             'evaluations' => $evaluations,
+            'entretiens' => $entretiens,
 
         ]);
     }

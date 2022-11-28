@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -39,7 +41,8 @@ class Offreemploi
      * @Assert\NotBlank(message=" description doit etre non vide")
      * @Assert\Length(
      *      min = 5,
-     *      minMessage=" Entrer description min 20 caracteres"
+     *      minMessage=" Entrer description min 20 caracteres",
+     *     max=500,
      *
      *     )
      * @ORM\Column(name="description", type="string", length=50, nullable=false)
@@ -69,6 +72,16 @@ class Offreemploi
      * @ORM\Column(name="picture", type="string", length=50, nullable=false)
      */
     private $picture;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="offreemploi",cascade={"persist"})
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getIdOffre(): ?int
     {
@@ -119,6 +132,36 @@ class Offreemploi
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setOffreemploi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getOffreemploi() === $this) {
+                $image->setOffreemploi(null);
+            }
+        }
 
         return $this;
     }
