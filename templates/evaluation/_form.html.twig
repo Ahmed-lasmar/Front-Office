@@ -82,11 +82,7 @@
                             </select>
 
                         </div>
-                        <div class="form-group">
-                            <label for="note">Total des point</label>
 
-                            <input id="sum" {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}>
-                        </div>
                         <script>
                             function somme(){
                                 var Connaisance, Formation,Outil,Travail,Experience,Competance,sum;
@@ -101,11 +97,16 @@
                             }
                         </script>
 
+                <a class="btn btn-primary"  role="button" onclick="somme()" class="btn btn-default"  type="submit"> Calculate</a>
 
+                        <br>
 
+                        <br>
+                        <div class="form-group">
+                            <label for="note">Total des point</label>
 
-
-                <a class="btn btn-primary"  role="button" onclick="somme()" class="btn btn-default" name="submit" type="submit">Calculate</a>
+                            <input id="sum"  {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}>
+                        </div>
 
                <div>
                    {{ form_label(form.avis) }}
@@ -113,7 +114,6 @@
                    {{ form_widget(form.avis,{'attr':{'class':'form-control'}}) }}
                </div>
 
-                <a class="btn btn-primary"  role="button" href="{{ path('app_evaluation_index') }}">Evaluate</a>
                     </fieldset>
                 </form>
             </div>
@@ -122,5 +122,11 @@
 
     </tr>
     </table>
+<div>
+    <br>
     <button class="btn btn-primary"  >{{ button_label|default('Save') }}</button>
+    <br>
+    <br>
+
+</div>
 {{ form_end(form) }}

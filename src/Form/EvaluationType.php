@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Evaluation;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,13 +14,14 @@ class EvaluationType extends AbstractType
     {
         $builder
 
-            ->add('idEntretien')
             ->add('note')
-            ->add('avis')
-
-
-        ;
-
+            ->add('avis', ChoiceType::class, [
+                'choices'  => [
+                    'In review' => 'In review',
+                    'Accepted' =>  'Accepted',
+                    'Refused' =>  'Refused',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
