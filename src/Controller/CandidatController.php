@@ -57,10 +57,10 @@ class CandidatController extends AbstractController
         $form = $this->createForm(CandidatType::class, $candidat);
         $form->handleRequest($request);
         $url=$candidat->getUrlCv();
-        $date=$candidat->getDPost()->format('Y-m-d');
+         $date=$candidat->getDPost()=== null ? '' :$candidat->getDPost()->format('Y-m-d')?? '';
         $competence=$candidat->getCompetence();
         $sid    = "AC34f9a95f1ec34776633bb8e0e7b488f2";
-        $token  = "b7dd1be1b8a3bb8446190afdceb47954";
+        $token  = "7881a8546526a72af7622529740159da";
         $twilio = new Client($sid, $token);
         if ($form->isSubmitted() && $form->isValid()) {
 
