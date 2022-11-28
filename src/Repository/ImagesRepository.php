@@ -39,20 +39,19 @@ class ImagesRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Images[] Returns an array of Images objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Images[] Returns an array of Classroom objects
+     */
+    public function findByOffre($value): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.offreemploi = :val')
+            ->setParameter('val', $value)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Images
 //    {

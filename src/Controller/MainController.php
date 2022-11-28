@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Offreemploi;
+use App\Repository\ImagesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,14 +29,22 @@ class MainController extends AbstractController
     }
 
     #[Route('/maincan', name: 'app_main_can')]
-    public function maincan(): Response
+    public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager): Response
     {
-        return $this->render('main/Can.html.twig');
+        $list=$imagesRepository->findAll();
+        $lists=$entityManager->getRepository(Offreemploi::class)->findAll();
+        return $this->render('main/Can.html.twig',['list'=>$list,"lists"=>$lists]);
     }
 
     #[Route('/db', name: 'app_db')]
     public function db(): Response
     {
         return $this->render('DBbase.html.twig');
+    }
+    #[Route('/portfolioDetails/{idOffre}', name: 'app_details')]
+    public function details($idOffre,ImagesRepository $imagesRepository): Response
+    {
+        $Offre=$imagesRepository->findByOffre(32);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre]);
     }
 }
