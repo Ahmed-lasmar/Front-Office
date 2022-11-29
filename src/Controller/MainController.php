@@ -34,8 +34,8 @@ class MainController extends AbstractController
     public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,RateRepository $rateRepository): Response
     {
         $list=$imagesRepository->findAll();
-        $lists=$rateRepository->topRatedOffer();
-        return $this->render('main/Can.html.twig',['list'=>$list,"lists"=>$lists]);
+       // $lists=$rateRepository->topRatedOffer();
+        return $this->render('main/Can.html.twig',['list'=>$list]);
     }
 
     #[Route('/db', name: 'app_db')]
@@ -68,7 +68,7 @@ class MainController extends AbstractController
 
         return $this->render('main/Can.html.twig',['list'=>$list]);
     }
-    #[Route('/portfolioDetails/{idOffre}/dislike', name: 'app_like_offer',  methods: ['GET', 'POST'])]
+    #[Route('/portfolioDetails/{idOffre}/dislike', name: 'app_dislike_offer',  methods: ['GET', 'POST'])]
     public function dislikeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
     {
         $list=$imagesRepository->findAll();
