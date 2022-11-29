@@ -66,9 +66,14 @@
               <ul>
                 <li>{{ c }}</li>
               </ul>
-              <a href={{ path("app_logout")}} class="filter-active"><h2>Demand This Offer</h2></a>
-              <button type="button" class="btn btn-success">like</button>
-              <button type="button" class="btn btn-danger">dislike</button>
+              <a href={{ path("app_candidat_new")}} class="filter-active"><h2>Demand This Offer</h2></a>
+              {% for e in offre %}
+                {% set d="http://127.0.0.1:8000/portfolioDetails/"~e.offreemploi.idOffre~"/like" %}
+                {% set f="http://127.0.0.1:8000/portfolioDetails/"~e.offreemploi.idOffre~"/dislike" %}
+                <a href={{ absolute_url(d) }}><button type="button" class="btn btn-success">like</button></a>
+                <a href={{ absolute_url(f) }}> <button type="button" class="btn btn-danger">dislike</button></a>
+              {% endfor %}
+
               
 
             </div>
