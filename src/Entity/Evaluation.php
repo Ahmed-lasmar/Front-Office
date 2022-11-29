@@ -47,6 +47,26 @@ class Evaluation
      */
     private $avis;
 
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getEntretien()
+    {
+        return $this->entretien;
+    }
+
+    /**
+     * @param mixed $entretien
+     */
+    public function setEntretien($entretien): void
+    {
+        $this->entretien = $entretien;
+    }
+
+
     public function getIdEvaluation(): ?int
     {
         return $this->idEvaluation;

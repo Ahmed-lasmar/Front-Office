@@ -22,7 +22,7 @@ class Entretien
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idEntretien;
+    protected int $idEntretien;
 
     /**
      * @var int|null
@@ -82,6 +82,45 @@ class Entretien
      * @ORM\Column(name="date_entretien", type="date", nullable=false)
      */
     private $dateEntretien;
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getEvaluationn()
+    {
+        return $this->evaluationn;
+    }
+
+    /**
+     * @param mixed $evaluationn
+     */
+    public function setEvaluationn($evaluationn): void
+    {
+        $this->evaluationn = $evaluationn;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getCandidat()
+    {
+        return $this->candidat;
+    }
+
+    /**
+     * @param mixed $candidat
+     */
+    public function setCandidat($candidat): void
+    {
+        $this->candidat = $candidat;
+    }
+
+
 
     public function getIdEntretien(): ?int
     {
@@ -156,6 +195,30 @@ class Entretien
     public function setDateEntretien(\DateTimeInterface $dateEntretien): self
     {
         $this->dateEntretien = $dateEntretien;
+
+        return $this;
+    }
+
+    public function getEvaluation(): ?Evaluation
+    {
+        return $this->evaluation;
+    }
+
+    public function setEvaluation(?Evaluation $evaluation): self
+    {
+        $this->evaluation = $evaluation;
+
+        return $this;
+    }
+
+    public function getEntretien(): ?self
+    {
+        return $this->entretien;
+    }
+
+    public function setEntretien(?self $entretien): self
+    {
+        $this->entretien = $entretien;
 
         return $this;
     }

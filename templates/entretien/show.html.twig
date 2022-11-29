@@ -38,9 +38,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_entretien_index') }}">back to list</a>
+    <a class="btn btn-primary"  role="button" href="{{ path('app_entretien_index') }}">Back to list</a>
 
-    <a href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">edit</a>
+    <a class="btn btn-success"  role="button" href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">Update</a>
 
     {{ include('entretien/_delete_form.html.twig') }}
 {% endblock %}

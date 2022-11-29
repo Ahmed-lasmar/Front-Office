@@ -1,24 +1,132 @@
 {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
 <table class="col-sm-10">
+
+
     <tr>
         <td>
-            {{ form_label(form.note) }}
-        </td>
-        <td>
+            <h1>Note d'évaluation</h1>
+            <div class="container">
+                <form>
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="Connaisance">Connaisance de l'entreprise</label>
+                            <select id="Connaisance" class="form-control">
+                                <option value="">Note...</option>
+                                <optgroup>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </optgroup>
+                            </select>
 
-            {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}
+                            <label for="Formation">Formation</label>
+                            <select id="Formation" class="form-control">
+                                <option value="">Note...</option>
+                                <optgroup>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </optgroup>
+                            </select>
+
+                            <label for="Outil">Outil maitriser</label>
+                            <select id="Outil" class="form-control">
+                                <option value="">Note...</option>
+                                <optgroup>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </optgroup>
+                            </select>
+
+                            <label for="Travail">Travail en equipe</label>
+                            <select id="Travail" class="form-control">
+                                <option value="">Note...</option>
+                                <optgroup>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </optgroup>
+                            </select>
+
+                            <label for="Experience">Expérience professionel</label>
+                            <select id="Experience" class="form-control">
+                                <option value="">Note...</option>
+                                <optgroup>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </optgroup>
+                            </select>
+
+                            <label for="Competance">Compétance</label>
+                            <select id="Competance" class="form-control">
+                                <option value="">Note...</option>
+                                <optgroup>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </optgroup>
+                            </select>
+
+                        </div>
+
+                        <script>
+                            function somme(){
+                                var Connaisance, Formation,Outil,Travail,Experience,Competance,sum;
+                                Connaisance = Number(document.getElementById("Connaisance").value);
+                                Formation = Number(document.getElementById("Formation").value);
+                                Outil = Number(document.getElementById("Outil").value);
+                                Travail = Number(document.getElementById("Travail").value);
+                                Experience = Number(document.getElementById("Experience").value);
+                                Competance = Number(document.getElementById("Competance").value);
+                                sum = Connaisance+Formation+Outil+Travail+Experience+Competance;
+                                document.getElementById("sum").value = sum;
+                            }
+                        </script>
+
+                <a class="btn btn-primary"  role="button" onclick="somme()" class="btn btn-default"  type="submit"> Calculate</a>
+
+                        <br>
+
+                        <br>
+                        <div class="form-group">
+                            <label for="note">Total des point</label>
+
+                            <input id="sum"  {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}>
+                        </div>
+
+               <div>
+                   {{ form_label(form.avis) }}
+
+                   {{ form_widget(form.avis,{'attr':{'class':'form-control'}}) }}
+               </div>
+
+                    </fieldset>
+                </form>
+            </div>
+
         </td>
 
     </tr>
-    <tr>
-        <td>
-            {{ form_label(form.avis) }}
-        </td>
-        <td>
-            {{ form_widget(form.avis) }}
-        </td>
+    </table>
+<div>
+    <br>
+    <button class="btn btn-primary"  >{{ button_label|default('Save') }}</button>
+    <br>
+    <br>
 
-    </tr>
-</table>
-    <button class="btn">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

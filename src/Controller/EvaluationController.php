@@ -14,15 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/evaluation')]
 class EvaluationController extends AbstractController
 {
+
+
     #[Route('/', name: 'app_evaluation_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $evaluations = $entityManager
             ->getRepository(Evaluation::class)
             ->findAll();
+        $entretiens = $entityManager
+            ->getRepository(Entretien::class)
+            ->findAll();
 
         return $this->render('evaluation/index.html.twig', [
             'evaluations' => $evaluations,
+            'entretiens' => $entretiens,
 
         ]);
     }
@@ -83,10 +89,6 @@ class EvaluationController extends AbstractController
 
         return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/note', name: 'note')]
-    public function note(): Response
-    {
 
-        return $this->render('evaluation/note.html.twig');
-    }
+
 }
