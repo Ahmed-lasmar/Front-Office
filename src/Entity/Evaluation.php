@@ -47,6 +47,12 @@ class Evaluation
      */
     private $avis;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Entretien::class, inversedBy="evaluation")
+     * @ORM\JoinColumn(name="entretien", referencedColumnName="id_entretien")
+     */
+    private $entretien;
+
 
 
 
