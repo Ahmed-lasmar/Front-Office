@@ -78,6 +78,11 @@ class Offreemploi
      */
     private $images;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Rate::class, cascade={"persist", "remove"})
+     */
+    private $rating;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -162,6 +167,18 @@ class Offreemploi
                 $image->setOffreemploi(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRating(): ?Rate
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?Rate $rating): self
+    {
+        $this->rating = $rating;
 
         return $this;
     }
