@@ -2,33 +2,34 @@
 
 namespace App\Controller;
 
+use App\Entity\Entretien;
+use App\Entity\Evaluation;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
 use Symfony\Component\HttpFoundation\Response;
 
 
 class HomeController  extends AbstractController
 {
     #[Route('/chart', name: 'app_homepage')]
-    public function index(ChartBuilderInterface $chartBuilder): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-        $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            'datasets' => [
-                [
-                    'label' => 'My First dataset',
-                    'backgroundColor' => 'rgb(255, 99, 132)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [0, 10, 5, 2, 20, 30, 45],
-                ],
-            ],
-        ]);
+        $firstName=$entityManager ->getRepository(Entretien::class)->findAll();
+        $note=$entityManager ->getRepository(Evaluation::class)->findAll();
+        $categNom = [];
+        $categNote = [];
+
+        foreach($firstName as $fn ){
+            $categNom[] = $fn->getFirstnameCandidat();
+        }
+        foreach($note as $n ){
+            $categNote[] = $n->getNote();
+        }
 
 
-        return $this->render('home/index.html.twig', [
-            'chart' => $chart,
-        ]);
+
+
+        return $this->render('home/stat.html.twig',['nom'=>json_encode($categNom) , 'note'=>json_encode($categNote)]
+        );
 }}

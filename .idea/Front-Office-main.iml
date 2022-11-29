@@ -148,5 +148,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="ionicons" level="application" />
+    <orderEntry type="library" name="Chart.js" level="application" />
   </component>
 </module>

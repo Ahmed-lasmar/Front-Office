@@ -11,6 +11,7 @@ use App\Form\EvaluationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EntretienController extends AbstractController
 {
     #[Route('/email', name: 'email')]
-    public function forgotPassword(Swift_Mailer $mailer, Request $request): Response
+    public function sendMail(Swift_Mailer $mailer, Request $request): Response
     {
         $email = (new Swift_Message('Passage Entretien'))
             ->setFrom('chadi.troudi@esprit.tn')
@@ -41,14 +42,19 @@ class EntretienController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($evaluation);
+
             $entityManager->flush();
 
+
             return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('evaluation/note.html.twig', [
             'evaluation' => $evaluation,
             'form' => $form,
+
+
         ]);
     }
 
@@ -58,6 +64,7 @@ class EntretienController extends AbstractController
         $entretiens = $entityManager
             ->getRepository(Entretien::class)
             ->findAll();
+
         $evaluation = $entityManager
             ->getRepository(Evaluation::class)
             ->findAll();
@@ -65,6 +72,7 @@ class EntretienController extends AbstractController
         return $this->render('entretien/index.html.twig', [
             'entretiens' => $entretiens,
             'evaluations' => $evaluation,
+
         ]);
     }
 
