@@ -49,14 +49,11 @@
                         <img src="{{ asset('assets/img/about.jpg') }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
-                        <h3>Les Top 3 Skill recommendé</h3>
-                        <p class="fst-italic">
-                           Skills
-                        </p>
+                        <h3>Top liked offer</h3>
                         <ul>
-                            <li><i class="ri-check-double-line"></i> Skill1</li>
-                            <li><i class="ri-check-double-line"></i> Skill2</li>
-                            <li><i class="ri-check-double-line"></i> Skill3</li>
+                            {% for x in lists %}
+                            <li><i class="ri-check-double-line"></i> {{ x.offreemploi}}</li>
+                            {% endfor %}
                         </ul>
 
                     </div>
@@ -142,7 +139,7 @@
                                 <p>{{ c }}</p>
                                 <div class="portfolio-links">
                                     <a href="{{ asset(a) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ b }}"><i class="bx bx-plus"></i></a>
-                                    <a href="{{ d }}" title="More Details"><i class="bx bx-link"></i></a>
+                                    <a href="{{ d   }}" title="More Details"><i class="bx bx-link"></i></a>
                                 </div>
                             </div>
                         </div>

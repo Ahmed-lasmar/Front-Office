@@ -39,20 +39,33 @@ class RateRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Rate[] Returns an array of Rate objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Rate[] Returns an array of Rate objects
+     */
+    public function topRatedOffer(): array
+    {
+       return $this->createQueryBuilder('r')
+           ->select('count(r) AS total')
+           ->addSelect('r.offreemploi AS offer')
+           ->where('r.rating = like')
+           //->from('APP\Entity\Rate')
+           ->groupBy('offer')
+           ->orderBy('total', 'ASC')
+           ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    public function topRatedOfferr()
+    {
+        $entitymMnager=$this->getEntityManager();
+        $querry=$entitymMnager->createQuery("SELECT s.offreemploi, count(s) AS total FROM APP\Entity\Rate s WHERE s.rating='like' GROUP BY s.offreemploi ORDER BY total ASC")
+            ->getResult()
+        ;
+        return $querry;
+    }
 
 //    public function findOneBySomeField($value): ?Rate
 //    {
