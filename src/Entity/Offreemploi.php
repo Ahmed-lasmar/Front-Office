@@ -79,13 +79,16 @@ class Offreemploi
     private $images;
 
     /**
-     * @ORM\OneToOne(targetEntity=Rate::class, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Rate::class, mappedBy="offreemploi",cascade={"persist"})
      */
     private $rating;
+
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->rating = new ArrayCollection();
     }
 
     public function getIdOffre(): ?int
@@ -171,17 +174,33 @@ class Offreemploi
         return $this;
     }
 
-    public function getRating(): ?Rate
+    /**
+     * @return Collection<int, Rate>
+     */
+    public function getRating(): Collection
     {
         return $this->rating;
     }
 
-    public function setRating(?Rate $rating): self
+    public function addRating(Rate $rating): self
     {
-        $this->rating = $rating;
+        if (!$this->rating->contains($rating)) {
+            $this->rating[] = $rating;
+            $rating->setOffreemploi($this);
+        }
 
         return $this;
     }
 
+    public function removeRating(Rate $rating): self
+    {
+        if ($this->rating->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getOffreemploi() === $this) {
+                $rating->setOffreemploi(null);
+            }
+        }
 
+        return $this;
+    }
 }
