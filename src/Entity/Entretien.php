@@ -86,7 +86,7 @@ class Entretien
     private $dateEntretien;
 
     /**
-     * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="entretien")
+     * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="entretien",cascade={"persist"})
      *
      */
     private $evaluation;

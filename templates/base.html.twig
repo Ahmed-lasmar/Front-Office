@@ -18,7 +18,9 @@
             <link href="{{ asset("assets/vendor/remixicon/remixicon.css") }}" rel="stylesheet">
             <link href="{{ asset("assets/vendor/swiper/swiper-bundle.min.css") }}" rel="stylesheet">
             {{ encore_entry_link_tags('app') }}
-
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+                  integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
+                  crossorigin="anonymous" referrerpolicy="no-referrer">
 
             <!-- Template Main CSS File -->
             <link href="{{ asset("assets/css/style.css") }}" rel="stylesheet">
@@ -35,6 +37,33 @@
             <script src="{{ asset("assets/vendor/swiper/swiper-bundle.min.js") }}"></script>
             <script src="{{ asset("assets/vendor/php-email-form/validate.js") }}"></script>
             {{ encore_entry_script_tags('app') }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+                    integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+                    crossorigin="anonymous" referrerpolicy="no-referrer">
+            </script>
+
+            <script>
+                let categories = document.querySelector("#categories")
+                let cateGraph =new Chart(categories, {
+                    type: 'bar',
+                    data: {
+                        labels: {{nom|raw}},
+                        datasets: [{
+                            label: 'Notes',
+                            data: {{ note|raw }},
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+
 
             <!-- Template Main JS File -->
             <script src="{{ asset("assets/js/main.js") }}"></script>
