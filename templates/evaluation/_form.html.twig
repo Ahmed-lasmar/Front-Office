@@ -6,9 +6,13 @@
 
         <td>
             <h1>Note d'évaluation</h1>
+
             <div class="container">
                 <form>
                     <fieldset>
+                        <div class="form-group">
+<br>
+                        </div>
                         <div class="form-group">
                             <label for="Connaisance">Connaisance de l'entreprise</label>
                             <select id="Connaisance" class="form-control">
@@ -69,7 +73,6 @@
                                     <option value="5">5</option>
                                 </optgroup>
                             </select>
-
                             <label for="Competance">Compétance</label>
                             <select id="Competance" class="form-control">
                                 <option value="">Note...</option>
@@ -81,7 +84,6 @@
                                     <option value="5">5</option>
                                 </optgroup>
                             </select>
-
                         </div>
 
                         <script>
@@ -97,16 +99,14 @@
                                 document.getElementById("sum").value = sum;
                             }
                         </script>
-
-                <a class="btn btn-primary"  role="button" onclick="somme()" class="btn btn-default"  type="submit"> Calculate</a>
-
+                <a class="btn btn-primary" role="button" onclick="somme()" class="btn btn-default"  type="submit"> Calculate</a>
                         <br>
 
                         <br>
                         <div class="form-group">
                             <label for="note">Total des point</label>
 
-                            <input id="sum"  {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}>
+                            <input id="sum" {{ form_widget(form.note,{'attr':{'class':'form-control'}}) }}>
                         </div>
 
                <div>
@@ -118,16 +118,14 @@
                     </fieldset>
                 </form>
             </div>
-
         </td>
-
     </tr>
     </table>
 <div>
     <br>
-    <button class="btn btn-primary"  >{{ button_label|default('Save') }}</button>
-    <br>
-    <br>
 
+<button class="btn btn-primary" >{{ button_label|default('Save') }}</button>
+    <br>
+    <br>
 </div>
 {{ form_end(form) }}

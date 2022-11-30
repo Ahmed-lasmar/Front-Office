@@ -13,7 +13,6 @@ class EvaluationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
             ->add('note')
             ->add('avis', ChoiceType::class, [
                 'choices'  => [

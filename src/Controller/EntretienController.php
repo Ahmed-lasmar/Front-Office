@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function MongoDB\BSON\toJSON;
 
 #[Route('/entretien')]
 class EntretienController extends AbstractController
@@ -34,8 +35,10 @@ class EntretienController extends AbstractController
     }
 
     #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
-    public function note(Request $request, EntityManagerInterface $entityManager): Response
+    public function note(Request $request,Request $request1,Request $request2, EntityManagerInterface $entityManager): Response
     {
+        $fname= $request1->get('fname');
+        $name= $request2->get('name');
         $evaluation = new Evaluation();
         $form = $this->createForm(EvaluationType::class, $evaluation);
         $form->handleRequest($request);
@@ -53,8 +56,8 @@ class EntretienController extends AbstractController
         return $this->renderForm('evaluation/note.html.twig', [
             'evaluation' => $evaluation,
             'form' => $form,
-
-
+            'fname'=>$fname,
+            'name'=>$name
         ]);
     }
 
