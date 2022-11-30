@@ -51,9 +51,11 @@
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
                         <h3>Top liked offer</h3>
                         <ul>
+                                {% for x in lists %}
 
-                            <li><i class="ri-check-double-line"></i> job</li>
+                            <li><i class="ri-check-double-line"></i> {{ x.nomoffre}} </li>
 
+                                {% endfor %}
                         </ul>
 
                     </div>
