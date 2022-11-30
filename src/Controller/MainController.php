@@ -34,8 +34,10 @@ class MainController extends AbstractController
     public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,RateRepository $rateRepository): Response
     {
         $list=$imagesRepository->findAll();
-       // $lists=$rateRepository->topRatedOffer();
-        return $this->render('main/Can.html.twig',['list'=>$list]);
+        $lists=$rateRepository->topRatedOffer();
+
+
+        return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
     }
 
     #[Route('/db', name: 'app_db')]
