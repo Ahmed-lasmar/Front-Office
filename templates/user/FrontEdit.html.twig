@@ -9,7 +9,7 @@
     <section style="margin-left: 2em">
         <h1>Modifier Profil de {{  app.user.nom }}</h1>
 
-        {{ include('user/_FrontformEdit.html.twig', {'button_label': 'Update'}) }}
+        {{ include('user/_FrontFormEdit.html.twig', {'button_label': 'Update'}) }}
 
         {%  if app.user.role is same as 'ROLE_ADMIN' %}
             <a href="{{ path('app_user_index') }}">back to list</a>

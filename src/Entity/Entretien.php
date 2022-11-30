@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -82,6 +84,17 @@ class Entretien
      * @ORM\Column(name="date_entretien", type="date", nullable=false)
      */
     private $dateEntretien;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="entretien",cascade={"persist"})
+     *
+     */
+    private $evaluation;
+
+    public function __construct()
+    {
+        $this->evaluation = new ArrayCollection();
+    }
 
 
 
@@ -219,6 +232,28 @@ class Entretien
     public function setEntretien(?self $entretien): self
     {
         $this->entretien = $entretien;
+
+        return $this;
+    }
+
+    public function addEvaluation(Evaluation $evaluation): self
+    {
+        if (!$this->evaluation->contains($evaluation)) {
+            $this->evaluation[] = $evaluation;
+            $evaluation->setEntretien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvaluation(Evaluation $evaluation): self
+    {
+        if ($this->evaluation->removeElement($evaluation)) {
+            // set the owning side to null (unless already changed)
+            if ($evaluation->getEntretien() === $this) {
+                $evaluation->setEntretien(null);
+            }
+        }
 
         return $this;
     }
