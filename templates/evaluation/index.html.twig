@@ -1,42 +1,46 @@
-{% extends 'RRH.html.twig' %}
+{% extends 'newnew.html.twig' %}
 
 {% block title %}Evaluation index{% endblock %}
 
 {% block body %}
-    <h1>Evaluation index</h1>
 
+    <h1>Evaluation index</h1>
     <table class="table">
         <thead>
             <tr>
+                <th>First Name</th>
+                <th>Name</th>
                 <th>Note</th>
                 <th>Avis</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-
         {% for evaluation in evaluations %}
-
-
             <tr>
+                <td> </td>
+                <td> </td>
                 <td>{{ evaluation.note }}</td>
                 <td>{{ evaluation.avis }}</td>
-
                 <td>
                     <a class="btn btn-info"  role="button" href="{{ path('app_evaluation_show', {'idEvaluation': evaluation.idEvaluation}) }}">show</a>
                     <a class="btn btn-secondary"  role="button" href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
+                    <a class="btn btn-warning"  role="button" href="{{ path('emailev', {'avis':evaluation.avis  } ) }}">Send Result</a>
+
                 </td>
 
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
         {% endfor %}
-
+            </tr>
         </tbody>
-
     </table>
 
     <a class="btn btn-primary"  role="button" href="{{ path('app_evaluation_new') }}">Create new</a>
+    <br><br>
+    <div>
+        <h1>STATISTIQUES</h1>
+        <canvas id="categories" width="700" height="100"></canvas>
+    </div>
+
+
+
 {% endblock %}

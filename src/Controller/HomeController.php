@@ -16,12 +16,17 @@ class HomeController  extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
     {
         $firstName=$entityManager ->getRepository(Entretien::class)->findAll();
+        $name=$entityManager ->getRepository(Entretien::class)->findAll();
         $note=$entityManager ->getRepository(Evaluation::class)->findAll();
-        $categNom = [];
+        $categFname = [];
+        $categName = [];
         $categNote = [];
 
         foreach($firstName as $fn ){
-            $categNom[] = $fn->getFirstnameCandidat();
+            $categFname[] = $fn->getFirstnameCandidat();
+        }
+        foreach($name as $nom ){
+            $categName[] = $nom->getNameCandidat();
         }
         foreach($note as $n ){
             $categNote[] = $n->getNote();
@@ -30,6 +35,6 @@ class HomeController  extends AbstractController
 
 
 
-        return $this->render('home/stat.html.twig',['nom'=>json_encode($categNom) , 'note'=>json_encode($categNote)]
+        return $this->render('home/stat.html.twig',['nom'=>json_encode($categName) ,'prenom'=>json_encode($categFname), 'note'=>json_encode($categNote)]
         );
 }}

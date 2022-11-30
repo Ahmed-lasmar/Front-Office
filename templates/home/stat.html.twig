@@ -1,25 +1,24 @@
-{% extends 'RRH.html.twig' %}
-{% block title %}New Evaluation{% endblock %}
 
-{%  block stylesheets %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
-          integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
-          crossorigin="anonymous" referrerpolicy="no-referrer">
-{% endblock %}
+{% extends 'base.html.twig' %}
 
-{%  block javascript %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-        integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-</script>
 
-<script>
-    let categories = document.querySelector("#categories")
-    let cateGraph =new Chart(categories, {
-    type: 'bar',
-    data: {
-    labels: {{nom|raw}},
+{% block body %}
+
+
+    {%  block javascript %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+            integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+
+    <script>
+        let categories = document.querySelector("#categories")
+        let cateGraph =new Chart(categories, {
+        type: 'bar',
+        data: {
+        labels: {{ prenom|raw }},
     datasets: [{
     label: 'Notes',
     data: {{ note|raw }},
@@ -37,12 +36,4 @@
 </script>
 
 {% endblock %}
-
-{% block body %}
-    <div>
-        <h1>STATISTIQUES</h1>
-        <canvas id="categories" width="700" height="100"></canvas>
-    </div>
 {% endblock %}
-
-
