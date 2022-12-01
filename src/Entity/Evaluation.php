@@ -48,12 +48,11 @@ class Evaluation
     private $avis;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Entretien::class, inversedBy="evaluation",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity=Entretien::class, inversedBy="evaluation",cascade={"persist"})
      * @ORM\JoinColumn(name="entretien", referencedColumnName="id_entretien")
+     *
      */
     private $entretien;
-
-
 
 
     /**
