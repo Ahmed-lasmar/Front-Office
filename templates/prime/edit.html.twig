@@ -3,11 +3,14 @@
 {% block title %}Edit Prime{% endblock %}
 
 {% block body %}
-    <h1>Edit Prime</h1>
+
+<section style="margin-left: 5%">
+    <h1>Modifier Prime  </h1>
 
     {{ include('prime/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_prime_index') }}">back to list</a>
 
     {{ include('prime/_delete_form.html.twig') }}
+</section>
 {% endblock %}

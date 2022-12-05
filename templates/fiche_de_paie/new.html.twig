@@ -3,9 +3,11 @@
 {% block title %}New FicheDePaie{% endblock %}
 
 {% block body %}
+<section style="margin-left: 5%">
     <h1>Create new FicheDePaie</h1>
 
     {{ include('fiche_de_paie/_form.html.twig') }}
 
     <a href="{{ path('app_fiche_de_paie_index') }}">back to list</a>
+</section>
 {% endblock %}
