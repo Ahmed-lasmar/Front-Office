@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Message\SmsMessage;
 use Symfony\Component\Notifier\TexterInterface;
+use Twilio\Exceptions\ConfigurationException;
+use Twilio\Exceptions\TwilioException;
+use Twilio\Rest\Client;
 
 #[Route('/candidat')]
 class CandidatController extends AbstractController
@@ -42,14 +45,35 @@ class CandidatController extends AbstractController
 
         // ...
     }
+
+    /**
+     * @throws ConfigurationException
+     * @throws TwilioException
+     */
     #[Route('/new', name: 'app_candidat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $candidat = new Candidat();
         $form = $this->createForm(CandidatType::class, $candidat);
         $form->handleRequest($request);
-
+        $url=$candidat->getUrlCv();
+         $date=$candidat->getDPost()=== null ? '' :$candidat->getDPost()->format('Y-m-d')?? '';
+        $competence=$candidat->getCompetence();
+        $sid    = "AC34f9a95f1ec34776633bb8e0e7b488f2";
+        $token  = "2ab83b396f38abb0d96f35e84bd10de8";
+        $twilio = new Client($sid, $token);
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $message = $twilio->messages
+                ->create("+21694465555", // to
+                    array(
+                        "from" =>"+18635091531",
+                        "body" => "Mr Radhwen, a new candidate was added at this day $date .The link showing his CV is: $url. Having skills : $competence"
+                    )
+                );
+
+            print($message->sid);
             $entityManager->persist($candidat);
             $entityManager->flush();
             return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);

@@ -4,43 +4,46 @@
 
 {% block body %}
     <h1>Entretien List</h1>
-
     <table class="table">
         <thead>
             <tr>
-
                 <th>Firstname</th>
                 <th>Name</th>
                 <th>Date</th>
                 <th>Heure</th>
                 <th>Present Person</th>
                 <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for entretien in entretiens  %}
-            {% for evaluation in evaluations %}
+        {% for evaluation in evaluations %}
+        {% if evaluations|length == loop.index %}
             <tr>
+
+
 
                 <td>{{ entretien.firstnameCandidat }}</td>
                 <td>{{ entretien.nameCandidat }}</td>
                 <td>{{ entretien.dateEntretien ? entretien.dateEntretien|date('Y-m-d') : '' }}</td>
                 <td>{{ entretien.heure }}</td>
                 <td>{{ entretien.personPresent }}</td>
-
-
                 <td>
                     <a class="btn btn-info"  role="button" href="{{ path('app_entretien_show', {'idEntretien': entretien.idEntretien}) }}">Show</a>
                     <a class="btn btn-secondary"  role="button" href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">Edit</a>
-                    <a class="btn btn-warning"  role="button" href="{{ path('note', {'idEvaluation': evaluation.idEvaluation}) }}">Evaluate</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        {% endfor %}
+                    <a class="btn btn-warning"  role="button" href="{{ path('email', {'name':entretien.firstnameCandidat ,'heure':entretien.heure, 'date':entretien.dateEntretien ? entretien.dateEntretien|date('Y-m-d') : '' } ) }}">Send Mail</a>
+            <td>
+
+                <a class="btn btn-success"  role="button" href="{{ path('note', {'idEvaluation': evaluation.idEvaluation,'fname':entretien.firstnameCandidat,'name':entretien.nameCandidat}) }}">Evaluate</a>
+            </td>
+
+                {% endif %}
+                {% endfor %}
+*                {% endfor %}
+
+
+                </tr>
         </tbody>
     </table>
 

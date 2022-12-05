@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -39,7 +41,8 @@ class Offreemploi
      * @Assert\NotBlank(message=" description doit etre non vide")
      * @Assert\Length(
      *      min = 5,
-     *      minMessage=" Entrer description min 20 caracteres"
+     *      minMessage=" Entrer description min 20 caracteres",
+     *     max=500,
      *
      *     )
      * @ORM\Column(name="description", type="string", length=50, nullable=false)
@@ -69,6 +72,24 @@ class Offreemploi
      * @ORM\Column(name="picture", type="string", length=50, nullable=false)
      */
     private $picture;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="offreemploi",cascade={"persist"})
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rate::class, mappedBy="offreemploi",cascade={"persist"})
+     */
+    private $rating;
+
+
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->rating = new ArrayCollection();
+    }
 
     public function getIdOffre(): ?int
     {
@@ -123,5 +144,63 @@ class Offreemploi
         return $this;
     }
 
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
 
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setOffreemploi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getOffreemploi() === $this) {
+                $image->setOffreemploi(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rate>
+     */
+    public function getRating(): Collection
+    {
+        return $this->rating;
+    }
+
+    public function addRating(Rate $rating): self
+    {
+        if (!$this->rating->contains($rating)) {
+            $this->rating[] = $rating;
+            $rating->setOffreemploi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rate $rating): self
+    {
+        if ($this->rating->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getOffreemploi() === $this) {
+                $rating->setOffreemploi(null);
+            }
+        }
+
+        return $this;
+    }
 }

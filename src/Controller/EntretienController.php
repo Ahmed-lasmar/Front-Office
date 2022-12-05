@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Controller;
 
 use App\Entity\Entretien;
@@ -7,31 +9,55 @@ use App\Entity\Evaluation;
 use App\Form\EntretienType;
 use App\Form\EvaluationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Swift_Mailer;
+use Swift_Message;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function MongoDB\BSON\toJSON;
 
 #[Route('/entretien')]
 class EntretienController extends AbstractController
 {
-    #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
-    public function note(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/email', name: 'email')]
+    public function sendMail(Swift_Mailer $mailer, Request $request): Response
     {
+        $email = (new Swift_Message('Passage Entretien'))
+            ->setFrom('chadi.troudi@esprit.tn')
+            ->setTo('racem.benamar@esprit.tn')
+            ->setBody("<p> Bonjour ".$request->get('name')." </p>Votre entretien sera fixée au date: ".$request->get('date')." à ".$request->get('heure')." chez notre établissement."."<p>Cordialement,</p>",
+                "text/html");
+        $mailer->send($email);
+        $this->addFlash('message','E-mail  de réinitialisation du mp envoyé :');
+        return $this->redirectToRoute('app_entretien_index');
+    }
+
+    #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
+    public function note(Request $request,Request $request1,Request $request2, EntityManagerInterface $entityManager): Response
+    {
+        $fname= $request1->get('fname');
+        $name= $request2->get('name');
         $evaluation = new Evaluation();
         $form = $this->createForm(EvaluationType::class, $evaluation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($evaluation);
+
             $entityManager->flush();
 
+
             return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('evaluation/note.html.twig', [
             'evaluation' => $evaluation,
             'form' => $form,
+            'fname'=>$fname,
+            'name'=>$name
         ]);
     }
 
@@ -41,6 +67,7 @@ class EntretienController extends AbstractController
         $entretiens = $entityManager
             ->getRepository(Entretien::class)
             ->findAll();
+
         $evaluation = $entityManager
             ->getRepository(Evaluation::class)
             ->findAll();
@@ -48,6 +75,7 @@ class EntretienController extends AbstractController
         return $this->render('entretien/index.html.twig', [
             'entretiens' => $entretiens,
             'evaluations' => $evaluation,
+
         ]);
     }
 
@@ -61,7 +89,6 @@ class EntretienController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($entretien);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -90,7 +117,6 @@ class EntretienController extends AbstractController
 
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('entretien/edit.html.twig', [
             'entretien' => $entretien,
             'form' => $form,
@@ -104,9 +130,9 @@ class EntretienController extends AbstractController
             $entityManager->remove($entretien);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
 }
+
