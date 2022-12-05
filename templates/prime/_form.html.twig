@@ -1,5 +1,44 @@
 {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
-    {{ form_widget(form) }}
-{{ form_errors(form,{'attr':{'class':'text-danger'}}) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {# {{ form_widget(form) }} #}
+ {{ form_errors(form,{'attr':{'class':'text-danger'}}) }}
+
+<table>
+    {#     <tr>
+        <td>
+            {{ form_label(form.idPrime) }}
+        </td>
+        <td>
+            {{ form_widget(form.idPrime) }}
+        </td>
+    </tr> #}
+
+    <tr>
+        <td>
+            {{ form_label(form.typePrime) }}
+        </td>
+        <td>
+            {{ form_widget(form.typePrime) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.valeurPrime) }}
+        </td>
+        <td>
+            {{ form_widget(form.valeurPrime) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.datePrime) }}
+        </td>
+        <td>
+            {{ form_widget(form.datePrime) }}
+        </td>
+    </tr>
+    <tr><td></td><td>
+            <button class="btn">{{ button_label|default('Save') }}</button>
+        </td></tr>
+
+</table>
 {{ form_end(form) }}

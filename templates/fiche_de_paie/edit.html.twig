@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'RRH.html.twig' %}
 
 {% block title %}Edit FicheDePaie{% endblock %}
 
 {% block body %}
+<section style="margin-left: 5%">
     <h1>Edit FicheDePaie</h1>
 
     {{ include('fiche_de_paie/_form.html.twig', {'button_label': 'Update'}) }}
@@ -10,4 +11,5 @@
     <a href="{{ path('app_fiche_de_paie_index') }}">back to list</a>
 
     {{ include('fiche_de_paie/_delete_form.html.twig') }}
+</section>
 {% endblock %}
