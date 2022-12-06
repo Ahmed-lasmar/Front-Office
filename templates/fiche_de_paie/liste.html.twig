@@ -1,0 +1,37 @@
+{% block body %}
+    <h1 align="center">FicheDePaie liste</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>IdFp</th>
+            <th>IdPer</th>
+            <th>SalaireInit</th>
+            <th>IdPrime</th>
+            <th>SalaireTotal</th>
+            <th>DatePaiement</th>
+            <th>EtatPaiement</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for fiche_de_paie in fiche_de_paies %}
+            <tr>
+                <td>{{ fiche_de_paie.idFp }}</td>
+                <td>{{ fiche_de_paie.idPer }}</td>
+                <td>{{ fiche_de_paie.salaireInit }}</td>
+                <td>{{ fiche_de_paie.idPrime }}</td>
+                <td>{{ fiche_de_paie.salaireTotal }}</td>
+                <td>{{ fiche_de_paie.datePaiement ? fiche_de_paie.datePaiement|date('Y-m-d') : '' }}</td>
+                <td>{{ fiche_de_paie.etatPaiement }}</td>
+
+            </tr>
+
+
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

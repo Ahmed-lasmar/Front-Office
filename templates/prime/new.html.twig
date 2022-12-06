@@ -3,9 +3,11 @@
 {% block title %}New Prime{% endblock %}
 
 {% block body %}
+<section style="margin-left: 5%">
     <h1>Create new Prime</h1>
 
     {{ include('prime/_form.html.twig') }}
 
     <a href="{{ path('app_prime_index') }}">back to list</a>
+</section>
 {% endblock %}
