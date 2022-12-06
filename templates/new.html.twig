@@ -107,7 +107,7 @@
                              with font-awesome or any other icon font library -->
 
                         <li class="nav-item menu-open">
-                            <a href={{ asset("#")}} class="nav-link active">
+                            <a href={{ asset("#")}} class="nav-link active>
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -116,7 +116,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href={{ asset("./index.html")}} class="nav-link active">
+                                    <a href={{ asset("./index.html")}} class="nav-link active>
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Dashboard v1</p>
                                     </a>
@@ -1416,6 +1416,7 @@
     labels: {{ nom|raw }},
     datasets: [{
     label: 'Notes',
+    barThickness:35,
     data: {{ note|raw }},
     borderWidth: 1
 }]
