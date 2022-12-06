@@ -56,8 +56,8 @@ class MainController extends AbstractController
     {
         $lists=$rateRepository->topRatedOffer();
         $list=$imagesRepository->findAll();
-        $imgs=$imagesRepository->findByOffre($idOffre);
-        foreach($imgs as $img){
+        $offre=$imagesRepository->findByOffre($idOffre);
+        foreach($offre as $img){
             $rating=new Rate();
             $rating->setRating("like");
             $img->getOffreemploi()->addRating($rating);
@@ -69,15 +69,15 @@ class MainController extends AbstractController
             //$offreemploi->addRating($rating);
         }
 
-        return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists]);
     }
     #[Route('/portfolioDetails/{idOffre}/dislike', name: 'app_dislike_offer',  methods: ['GET', 'POST'])]
     public function dislikeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
     {
         $list=$imagesRepository->findAll();
         $lists=$rateRepository->topRatedOffer();
-        $imgs=$imagesRepository->findByOffre($idOffre);
-        foreach($imgs as $img){
+        $offre=$imagesRepository->findByOffre($idOffre);
+        foreach($offre as $img){
             $rating=new Rate();
             $rating->setRating("dislike");
             $img->getOffreemploi()->addRating($rating);
@@ -89,6 +89,6 @@ class MainController extends AbstractController
             //$offreemploi->addRating($rating);
         }
 
-        return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists]);
     }
 }

@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
+
+    <!-- Google Font: Source Sans Pro -->
+    <link  href={{ asset("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback")}} rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href={{ asset("/prime/plugins/fontawesome-free/css/all.css")}} rel="stylesheet">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href={{ asset("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")}}>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href={{ asset('/prime/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}>
+    <!-- iCheck -->
+    <link rel="stylesheet" href={{ asset("/prime/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}>
+    <!-- JQVMap -->
+    <link rel="stylesheet" href={{ asset("/prime/plugins/jqvmap/jqvmap.min.css")}}>
+    <!-- Theme style -->
+    <link rel="stylesheet" href={{ asset("/prime/dist/css/adminlte.min.css")}}>
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href={{ asset("/prime/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href={{ asset("/prime/plugins/daterangepicker/daterangepicker.css")}}>
+    <!-- summernote -->
+    <link rel="stylesheet" href={{ asset("/prime/plugins/summernote/summernote-bs4.min.css")}}>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
         <!-- Google Font: Source Sans Pro -->
         <link  href={{ asset("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback")}} rel="stylesheet">
         <!-- Font Awesome -->
@@ -25,6 +48,7 @@
         <link rel="stylesheet" href={{ asset("/prime/plugins/daterangepicker/daterangepicker.css")}}>
         <!-- summernote -->
         <link rel="stylesheet" href={{ asset("/prime/plugins/summernote/summernote-bs4.min.css")}}>
+
     {% endblock %}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -1402,7 +1426,24 @@
         integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 </script>
+{#
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
 
+    Toastify({
+    text: "hello ",
+    duration: 3000,
+    newWindow: true,
+    close: true,
+    gravity: "bottom", // top or bottom
+    position: "left", // left, center or right
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+},
+    onClick: function(){} // Callback after click
+}).showToast();
+</script> #}
 
 {% endblock %}
 </body>
