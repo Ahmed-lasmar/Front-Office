@@ -25,6 +25,7 @@
     <link rel="stylesheet" href={{ asset("/prime/plugins/daterangepicker/daterangepicker.css")}}>
     <!-- summernote -->
     <link rel="stylesheet" href={{ asset("/prime/plugins/summernote/summernote-bs4.min.css")}}>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     {% endblock %}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -1402,7 +1403,24 @@
         integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 </script>
+{#
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
 
+    Toastify({
+    text: "hello ",
+    duration: 3000,
+    newWindow: true,
+    close: true,
+    gravity: "bottom", // top or bottom
+    position: "left", // left, center or right
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+},
+    onClick: function(){} // Callback after click
+}).showToast();
+</script> #}
 
 {% endblock %}
 </body>
