@@ -67,6 +67,8 @@ class FicheDePaie
      * @var string
      *  @Assert\NotBlank(message=" etatPaiement doit etre non vide")
      *
+     *
+     *
      * @Assert\Length(
      *      min = 2,
      *      max = 100,

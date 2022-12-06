@@ -1,20 +1,23 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\EmpRepository;
+use App\Service\pdfService;
 use App\Entity\FicheDePaie;
+use App\Entity\Personne;
 use App\Form\FicheDePaieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 #[Route('/fiche/de/paie')]
 class FicheDePaieController extends AbstractController
 {
     #[Route('/', name: 'app_fiche_de_paie_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager ): Response
     {
         $ficheDePaies = $entityManager
             ->getRepository(FicheDePaie::class)
@@ -23,6 +26,73 @@ class FicheDePaieController extends AbstractController
         return $this->render('fiche_de_paie/index.html.twig', [
             'fiche_de_paies' => $ficheDePaies,
         ]);
+    }
+    /**
+     * @route("/recherche",name="recherche" ,methods={"GET","POST"})
+     *
+     *
+     */
+    public function recherche(Request $req, EntityManagerInterface $entityManager)
+    {
+        $data = $req->get('searche');
+        $repository = $entityManager->getRepository(FicheDePaie::class);
+        $fiche_de_paies = $repository->findBy(['etatPaiement' => $data]);
+        return $this->render('fiche_de_paie/index.html.twig', [
+            'fiche_de_paies' => $fiche_de_paies
+        ]);
+    }
+    #[Route('/pdfffd', name:'fichedepaiepdf')]
+    public function indexyessin(EntityManagerInterface $entityManager)
+
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        $ficheDePaies=$entityManager->getRepository(FicheDePaie::class)->findAll();
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->render('fiche_de_paie/liste.html.twig', [
+            'fiche_de_paies' => $ficheDePaies,
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
+        return new Response();
+
+    }
+
+    /**
+     * @Route("/triid", name="triid")
+     */
+
+    public function Triid(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT c FROM App\Entity\FicheDePaie c 
+            ORDER BY c.salaireInit'
+        );
+
+
+        $fiche_de_paies = $query->getResult();
+
+        return $this->render('fiche_de_paie/index.html.twig',
+            array('fiche_de_paies' => $fiche_de_paies));
+
     }
 
     #[Route('/new', name: 'app_fiche_de_paie_new', methods: ['GET', 'POST'])]
@@ -81,4 +151,13 @@ class FicheDePaieController extends AbstractController
 
         return $this->redirectToRoute('app_fiche_de_paie_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    //#[Route('/pdf/{id}', name:'fichedepaie.pdf')]
+    //public function generatePdfPersonne(FicheDePaie $ficheDePaie = null, PdfService $pdf){
+      //  $html = $this->render('fiche_de_paie/show.html.twig',['fichedepaie'=> $ficheDePaie]);
+        //$pdf->showPdfFile($html);
+    //}
 }
+

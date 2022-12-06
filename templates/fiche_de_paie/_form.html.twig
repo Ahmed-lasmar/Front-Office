@@ -1,5 +1,58 @@
 {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
-    {{ form_widget(form) }}
+    {# {{ form_widget(form) }} #}
 {{ form_errors(form,{'attr':{'class':'text-danger'}}) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<table>
+    <tr>
+        <td>
+            {{ form_label(form.idPer) }}
+        </td>
+        <td>
+            {{ form_widget(form.idPer) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.salaireInit) }}
+        </td>
+        <td>
+            {{ form_widget(form.salaireInit) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.idPrime) }}
+        </td>
+        <td>
+            {{ form_widget(form.idPrime) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.salaireTotal) }}
+        </td>
+        <td>
+            {{ form_widget(form.salaireTotal) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.datePaiement) }}
+        </td>
+        <td>
+            {{ form_widget(form.datePaiement) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.etatPaiement) }}
+        </td>
+        <td>
+            {{ form_widget(form.etatPaiement) }}
+        </td>
+    </tr>
+    <tr><td></td><td>
+            <button class="btn">{{ button_label|default('Save') }}</button>
+        </td></tr>
+</table>
+
 {{ form_end(form) }}

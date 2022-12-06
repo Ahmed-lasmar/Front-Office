@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Images;
 use App\Entity\Offreemploi;
+use App\Entity\Rate;
 use App\Form\OffreemploiType;
+use App\Repository\ImagesRepository;
+use App\Repository\RateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,6 +68,7 @@ class OffreemploiController extends AbstractController
         ]);
     }
 
+
     #[Route('/{idOffre}', name: 'app_offreemploi_show', methods: ['GET'])]
     public function show(Offreemploi $offreemploi): Response
     {
@@ -72,6 +76,7 @@ class OffreemploiController extends AbstractController
             'offreemploi' => $offreemploi,
         ]);
     }
+
 
     #[Route('/{idOffre}/edit', name: 'app_offreemploi_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Offreemploi $offreemploi, EntityManagerInterface $entityManager): Response

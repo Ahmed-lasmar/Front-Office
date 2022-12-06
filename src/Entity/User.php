@@ -17,7 +17,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * @var int
      *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
+     * @ORM\Column(name="idUser", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -31,7 +31,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      *      minMessage=" Entrer un nom au mini de 3 caracteres"
      *
      *     )
-     * @ORM\Column(name="Nom", type="string", length=255, nullable=false,unique=false)
+     * @ORM\Column(name="Nom", type="string", length=255, nullable=true,unique=false)
      */
     private $nom;
 
@@ -67,7 +67,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      *      max = 9,
      *      minMessage = "doit etre 8 ",
      *      maxMessage = "doit etre 8" )
-     * @ORM\Column(name="Cin", type="string", length=255,unique=false)
+     * @ORM\Column(name="Cin", type="string", length=255, nullable=true,unique=false)
      */
     private $cin;
 

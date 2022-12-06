@@ -39,11 +39,12 @@
             {{ encore_entry_script_tags('app') }}
 
 
+
             <!-- Template Main JS File -->
             <script src="{{ asset("assets/js/main.js") }}"></script>
         {% endblock %}
     </head>
-    <body>
+    <body style="background-color: white;">
     <!-- ======= Header ======= -->
     {% block header %}
 
@@ -82,7 +83,7 @@
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- .navbar -->
-
+                <a href={{ path("app_registration")}} class="get-started" style="margin: 10px">Registration</a>
                 <a href={{ path("app_login")}} class="get-started-btn scrollto">Login</a>
 
             </div>

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Offreemploi;
+use App\Entity\Rate;
 use App\Repository\ImagesRepository;
+use App\Repository\RateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +31,13 @@ class MainController extends AbstractController
     }
 
     #[Route('/maincan', name: 'app_main_can')]
-    public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager): Response
+    public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,RateRepository $rateRepository): Response
     {
         $list=$imagesRepository->findAll();
-        $lists=$entityManager->getRepository(Offreemploi::class)->findAll();
-        return $this->render('main/Can.html.twig',['list'=>$list,"lists"=>$lists]);
+        $lists=$rateRepository->topRatedOffer();
+
+
+        return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
     }
 
     #[Route('/db', name: 'app_db')]
@@ -46,5 +50,45 @@ class MainController extends AbstractController
     {
         $Offre=$imagesRepository->findByOffre($idOffre);
         return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre]);
+    }
+    #[Route('/portfolioDetails/{idOffre}/like', name: 'app_like_offer',  methods: ['GET', 'POST'])]
+    public function likeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
+    {
+        $lists=$rateRepository->topRatedOffer();
+        $list=$imagesRepository->findAll();
+        $imgs=$imagesRepository->findByOffre($idOffre);
+        foreach($imgs as $img){
+            $rating=new Rate();
+            $rating->setRating("like");
+            $img->getOffreemploi()->addRating($rating);
+           $rateRepository->add($rating,true);
+            $entityManager->persist($rating);
+            $entityManager->flush();
+            // On stocke l'image dans la base de données (son nom)
+            // $rating->setRating("like");
+            //$offreemploi->addRating($rating);
+        }
+
+        return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
+    }
+    #[Route('/portfolioDetails/{idOffre}/dislike', name: 'app_dislike_offer',  methods: ['GET', 'POST'])]
+    public function dislikeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
+    {
+        $list=$imagesRepository->findAll();
+        $lists=$rateRepository->topRatedOffer();
+        $imgs=$imagesRepository->findByOffre($idOffre);
+        foreach($imgs as $img){
+            $rating=new Rate();
+            $rating->setRating("dislike");
+            $img->getOffreemploi()->addRating($rating);
+            $rateRepository->add($rating,true);
+            $entityManager->persist($rating);
+            $entityManager->flush();
+            // On stocke l'image dans la base de données (son nom)
+            // $rating->setRating("like");
+            //$offreemploi->addRating($rating);
+        }
+
+        return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
     }
 }
