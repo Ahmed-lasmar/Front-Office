@@ -35,15 +35,18 @@ class EntretienController extends AbstractController
     }
 
     #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
-    public function note(Request $request,Request $request1,Request $request2, EntityManagerInterface $entityManager): Response
+    public function note(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $fname= $request1->get('fname');
-        $name= $request2->get('name');
+        $idE= $request->get('id_ent');
+        $fname= $request->get('fname');
+        $name= $request->get('name');
         $evaluation = new Evaluation();
         $form = $this->createForm(EvaluationType::class, $evaluation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cand=$entityManager->getRepository(Entretien::class)->find($idE);
+            $evaluation->setEntretien($cand);
             $entityManager->persist($evaluation);
 
             $entityManager->flush();

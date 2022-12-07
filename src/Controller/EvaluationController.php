@@ -58,25 +58,24 @@ class EvaluationController extends AbstractController
     #[Route('/', name: 'app_evaluation_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager,Request $request): Response
     {
-       $fname= $request->get('fname');
+       $fname= $request->get('id_ent');
         $evaluations = $entityManager
             ->getRepository(Evaluation::class)
             ->findAll();
-        $entretiens = $entityManager
-            ->getRepository(Entretien::class)
-            ->findAll();
-        $firstName=$entityManager ->getRepository(Entretien::class)->findAll();
-        $name=$entityManager ->getRepository(Entretien::class)->findAll();
+
+        $firstName=$entityManager ->getRepository(Evaluation::class)->findAll();
+        $name=$entityManager ->getRepository(Evaluation::class)->findAll();
         $note=$entityManager ->getRepository(Evaluation::class)->findAll();
         $categFname = [];
         $categName = [];
         $categNote = [];
 
         foreach($firstName as $fn ){
-            $categFname[] = $fn->getFirstnameCandidat();
+            $categFname[] = $fn->getEntretien()->getFirstnameCandidat();
+
         }
         foreach($name as $nom ){
-            $categName[] = $nom->getNameCandidat();
+            $categName[] = $nom->getEntretien()->getNameCandidat();
         }
         foreach($note as $n ){
             $categNote[] = $n->getNote();
@@ -87,9 +86,8 @@ class EvaluationController extends AbstractController
 
         return $this->render('evaluation/index.html.twig', [
             'evaluations' => $evaluations,
-            'entretiens' => $entretiens,
-            'nom'=>json_encode($categName) ,
-            'prenom'=>json_encode($categFname),
+            'nom'=>json_encode($categName+$categFname),
+
             'note'=>json_encode($categNote),
             'fname'=>$fname
 
