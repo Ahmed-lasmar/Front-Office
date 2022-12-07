@@ -1,5 +1,5 @@
-{% extends 'Emp.html.twig' %}
 
+{% extends app.user.role is same as 'ROLE_ADMIN' ? 'admin.html.twig' : app.user.role is same as 'ROLE_EMP' ? 'main/Femp.html.twig' :'RRH.html.twig' %}
 {% block title %}Participation index{% endblock %}
 
 {% block body %}
