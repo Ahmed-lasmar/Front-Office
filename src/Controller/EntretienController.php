@@ -86,11 +86,13 @@ class EntretienController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $entretien = new Entretien();
+        $evaluation = new Evaluation();
         $form = $this->createForm(EntretienType::class, $entretien);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($entretien);
+            $entityManager->persist($evaluation);
             $entityManager->flush();
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }

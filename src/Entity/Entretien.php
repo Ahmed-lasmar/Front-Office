@@ -91,11 +91,6 @@ class Entretien
      */
     private $evaluation;
 
-    public function __construct()
-    {
-        $this->evaluation = new ArrayCollection();
-    }
-
 
 
     /**

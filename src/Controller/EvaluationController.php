@@ -58,12 +58,14 @@ class EvaluationController extends AbstractController
     #[Route('/', name: 'app_evaluation_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager,Request $request): Response
     {
-       $fname= $request->get('id_ent');
         $evaluations = $entityManager
             ->getRepository(Evaluation::class)
             ->findAll();
+        $entretiens  = $entityManager
+            ->getRepository(Entretien::class)
+            ->findAll();
 
-        $firstName=$entityManager ->getRepository(Evaluation::class)->findAll();
+        $firstName=$entityManager ->getRepository(Entretien::class)->findAll();
         $name=$entityManager ->getRepository(Evaluation::class)->findAll();
         $note=$entityManager ->getRepository(Evaluation::class)->findAll();
         $categFname = [];
@@ -71,12 +73,12 @@ class EvaluationController extends AbstractController
         $categNote = [];
 
         foreach($firstName as $fn ){
-            $categFname[] = $fn->getEntretien()->getFirstnameCandidat();
+            $categFname[] = $fn->getFirstnameCandidat();
 
         }
-        foreach($name as $nom ){
+        /*foreach($name as $nom ){
             $categName[] = $nom->getEntretien()->getNameCandidat();
-        }
+        }*/
         foreach($note as $n ){
             $categNote[] = $n->getNote();
         }
@@ -86,16 +88,16 @@ class EvaluationController extends AbstractController
 
         return $this->render('evaluation/index.html.twig', [
             'evaluations' => $evaluations,
-            'nom'=>json_encode($categName+$categFname),
+            'entretiens' => $entretiens,
+            'nom'=>json_encode($categFname),
 
             'note'=>json_encode($categNote),
-            'fname'=>$fname
 
         ]);
     }
 
     #[Route('/new', name: 'app_evaluation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,Request $request1, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
 
         $evaluation = new Evaluation();
@@ -103,11 +105,10 @@ class EvaluationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $fname=$request1->get('fname');
             $entityManager->persist($evaluation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_evaluation_index', ['fname'=>$fname], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('evaluation/new.html.twig', [
