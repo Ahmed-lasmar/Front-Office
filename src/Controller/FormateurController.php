@@ -27,6 +27,29 @@ class FormateurController extends AbstractController
             'formateur' => $formateurs,
         ]);
     }
+
+    /**
+     * @Route("/triid", name="triid")
+     */
+
+    public function Triid(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT f FROM App\Entity\Formateur f 
+            ORDER BY f.nom'
+        );
+
+
+        $formateurs = $query->getResult();
+
+        return $this->render('formateur/index.html.twig',
+            array('formateur' => $formateurs));
+
+    }
+
+
     #[Route('/new', name: 'app_formateur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
