@@ -7,21 +7,21 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Idevent</th>
-                <th>Iduser</th>
-                <th>Type</th>
-                <th>Dateevent</th>
-                <th>Adresse</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Idevent</th>
+            <th>Iduser</th>
+            <th>Type</th>
+            <th>Date de l'evenement</th>
+            <th>Adresse</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for evenement in evenements %}
             <tr>
                 <td>{{ evenement.idevent }}</td>
                 <td>{{ evenement.iduser }}</td>
-                <td>{{ evenement.type }}</td>
+                <td>{{ evenement.type }}  </td>
                 <td>{{ evenement.dateevent }}</td>
                 <td>{{ evenement.adresse }}</td>
                 <td>
@@ -33,9 +33,23 @@
             <tr>
                 <td colspan="6">no records found</td>
             </tr>
+
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-danger">
+                    {{message}}
+                </div>
+            {% endfor %}
+
         {% endfor %}
         </tbody>
     </table>
 
+    {#  <span class="badge badge-sm bg-gradient"> <a href=" ">PDF</a></span>
+    <span class="badge badge-sm bg-gradient"> <a href="{{ path('statistiquesss') }}">Statistiques</a></span>#}
+    <br>
+
     <a href="{{ path('app_evenement_new') }}">Create new</a>
+    {#<div style="display: flex;justify-content: center">
+        {{ knp_pagination_render(evenements) }}
+    </div>#}
 {% endblock %}

@@ -21,7 +21,7 @@
                  with font-awesome or any other icon font library -->
 
             <li class="nav-item menu-open">
-                <a href={{ asset("#")}} class="nav-link active">
+                <a href={{ asset("#")}} class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Gestion d'utilisateurs
@@ -30,9 +30,27 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href={{ path("app_user_index")}} class="nav-link active">
+                        <a href={{ path("app_user_index")}} class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>User index</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item menu-open">
+                <a href={{ asset("#")}} class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Gestion des evenements
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href={{ path("app_participation_admin")}} class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Evenements index</p>
                         </a>
                     </li>
 

@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Evenement
  *
@@ -63,8 +62,9 @@ class Evenement
      *   )
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=20, nullable=false)
+     * @ORM\Column(name="adresse", type="string", length=30, nullable=false)
      */
+
     private $adresse;
 
     public function getIdevent(): ?int

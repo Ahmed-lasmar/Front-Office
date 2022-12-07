@@ -26,17 +26,6 @@ class ParticipationController extends AbstractController
             'participations' => $participations,
         ]);
     }
-    #[Route('/EnevtMang', name: 'app_participation_admin', methods: ['GET'])]
-    public function indexadmin(EntityManagerInterface $entityManager): Response
-    {
-        $participations = $entityManager
-            ->getRepository(Participation::class)
-            ->findAll();
-
-        return $this->render('participation/AdminIndex.html.twig', [
-            'participations' => $participations,
-        ]);
-    }
 
     #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
