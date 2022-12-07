@@ -1,9 +1,5 @@
 <?php
-
-
-
 namespace App\Controller;
-
 use App\Entity\Entretien;
 use App\Entity\Evaluation;
 use App\Form\EntretienType;
@@ -11,7 +7,6 @@ use App\Form\EvaluationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,22 +30,27 @@ class EntretienController extends AbstractController
     }
 
     #[Route('/note', name: 'note', methods: ['GET', 'POST'])]
-    public function note(Request $request,Request $request1,Request $request2, EntityManagerInterface $entityManager): Response
+    public function note(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $fname= $request1->get('fname');
-        $name= $request2->get('name');
+        $idE= $request->get('id_ent');
+        $idEval= $request->get('idEvaluation');
+        $fname= $request->get('fname');
+        $name= $request->get('name');
         $evaluation = new Evaluation();
+        $entretiens = $entityManager
+            ->getRepository(Entretien::class)
+            ->findAll();
+
         $form = $this->createForm(EvaluationType::class, $evaluation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cand=$entityManager->getRepository(Entretien::class)->find($idE);
+            $evaluation->setEntretien($cand);
+
             $entityManager->persist($evaluation);
-
             $entityManager->flush();
-
-
             return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
-
         }
 
         return $this->renderForm('evaluation/note.html.twig', [
@@ -68,9 +68,7 @@ class EntretienController extends AbstractController
             ->getRepository(Entretien::class)
             ->findAll();
 
-        $evaluation = $entityManager
-            ->getRepository(Evaluation::class)
-            ->findAll();
+        $evaluation = new Evaluation();
 
         return $this->render('entretien/index.html.twig', [
             'entretiens' => $entretiens,
@@ -82,11 +80,15 @@ class EntretienController extends AbstractController
     #[Route('/new', name: 'app_entretien_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $idE= $request->get('idEvaluation');
+        $idEnt= $request->get('id_ent');
         $entretien = new Entretien();
         $form = $this->createForm(EntretienType::class, $entretien);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //$entretien->setEvaluation($evaluation->getIdEvaluation());
+            //$evaluation->setEntretien($entretien->getIdEntretien());
             $entityManager->persist($entretien);
             $entityManager->flush();
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
@@ -114,7 +116,6 @@ class EntretienController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('entretien/edit.html.twig', [
@@ -135,4 +136,3 @@ class EntretienController extends AbstractController
 
 
 }
-
