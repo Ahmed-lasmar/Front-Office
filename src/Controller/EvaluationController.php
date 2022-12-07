@@ -23,7 +23,7 @@ class EvaluationController extends AbstractController
             $email = (new Swift_Message('Resultat Entretien'))
                 ->setFrom('chadi.troudi@esprit.tn')
                 ->setTo('racem.benamar@esprit.tn')
-                ->setBody("<p> Bonjour  </p>La résultat de votre entretien: ".$request->get('avis')."<p>Vous serez notifiez lors du changement de l'état d'évaluation.</p><p>Cordialement,</p>",
+                ->setBody("<p> Bonjour  ".$request->get('fname')." </p>La résultat de votre entretien: ".$request->get('avis')."<p>Vous serez notifiez lors du changement de l'état d'évaluation.</p><p>Cordialement,</p>",
                     "text/html");
             $mailer->send($email);
             $this->addFlash('message','E-mail de résultat de l`entretien :');
@@ -33,7 +33,7 @@ class EvaluationController extends AbstractController
             $email = (new Swift_Message('Resultat Entretien'))
                 ->setFrom('chadi.troudi@esprit.tn')
                 ->setTo('racem.benamar@esprit.tn')
-                ->setBody("<p> Bonjour  </p>La résultat de votre entretien: ".$request->get('avis')."<p> Malheuresement votre évaluation n'étais pas à la hauteur. Bon courage dans votre future.</p><p>Cordialement,</p>",
+                ->setBody("<p> Bonjour  ".$request->get('fname')." </p>La résultat de votre entretien: ".$request->get('avis')."<p> Malheuresement votre évaluation n'étais pas à la hauteur. Bon courage dans votre future.</p><p>Cordialement,</p>",
                     "text/html");
             $mailer->send($email);
             $this->addFlash('message','E-mail de résultat de l`entretien :');
@@ -43,7 +43,7 @@ class EvaluationController extends AbstractController
             $email = (new Swift_Message('Resultat Entretien'))
                 ->setFrom('chadi.troudi@esprit.tn')
                 ->setTo('racem.benamar@esprit.tn')
-                ->setBody("<p> Bonjour  </p>La résultat de votre entretien: ".$request->get('avis')."<p> Vous serez notifiez par les prochaines procedures.</p><p>Cordialement,</p>",
+                ->setBody("<p> Bonjour  ".$request->get('fname')." </p>La résultat de votre entretien: ".$request->get('avis')."<p> Vous serez notifiez par les prochaines procedures.</p><p>Cordialement,</p>",
                     "text/html");
             $mailer->send($email);
             $this->addFlash('message','E-mail de résultat de l`entretien :');
@@ -65,18 +65,20 @@ class EvaluationController extends AbstractController
             ->getRepository(Entretien::class)
             ->findAll();
 
-        $firstName=$entityManager ->getRepository(Entretien::class)->findAll();
-        $name=$entityManager ->getRepository(Evaluation::class)->findAll();
+        $firstName=$entityManager ->getRepository(Evaluation::class)->findAll();
+        //$name=$entityManager ->getRepository(Evaluation::class)->findAll();
         $note=$entityManager ->getRepository(Evaluation::class)->findAll();
         $categFname = [];
-        $categName = [];
+        //$categName = [];
         $categNote = [];
 
         foreach($firstName as $fn ){
-            $categFname[] = $fn->getFirstnameCandidat();
+            if ($fn->getEntretien() != null)
+            $categFname[] = $fn->getEntretien()->getFirstnameCandidat();
 
         }
-        /*foreach($name as $nom ){
+        /*
+         * foreach($name as $nom ){
             $categName[] = $nom->getEntretien()->getNameCandidat();
         }*/
         foreach($note as $n ){
@@ -90,7 +92,6 @@ class EvaluationController extends AbstractController
             'evaluations' => $evaluations,
             'entretiens' => $entretiens,
             'nom'=>json_encode($categFname),
-
             'note'=>json_encode($categNote),
 
         ]);

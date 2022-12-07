@@ -87,7 +87,7 @@ class Entretien
 
     /**
      * @ORM\OneToOne(targetEntity=Evaluation::class, mappedBy="entretien",cascade={"persist"})
-     *
+     * @ORM\JoinColumn(name="evaluation", referencedColumnName="id_evaluation")
      */
     private $evaluation;
 

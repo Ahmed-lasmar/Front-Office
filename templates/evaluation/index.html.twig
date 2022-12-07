@@ -24,25 +24,12 @@
                 <td>{{ evaluation.note }}</td>
                 <td>{{ evaluation.avis }}</td>
                 <td>
-                    <a class="btn btn-info"  role="button" href="{{ path('app_evaluation_show', {'idEvaluation': evaluation.idEvaluation}) }}">show</a>
-                    <a class="btn btn-secondary"  role="button" href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
-                    <a class="btn btn-warning"  role="button" href="{{ path('emailev', {'avis':evaluation.avis  } ) }}">Send Result</a>
+                    <a class="btn btn-info"  role="button" href="{{ path('app_evaluation_show', {'idEvaluation': evaluation.idEvaluation}) }}">Show</a>
+                    <a class="btn btn-secondary"  role="button" href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">Edit</a>
+                    <a class="btn btn-warning"  role="button" href="{{ path('emailev', {'avis':evaluation.avis,'fname':evaluation.entretien.firstNameCandidat  } ) }}">Send Result</a>
 
                 </td>
-        {% else %}
-
-        <tr>
-            <td>/</td>
-            <td>/</td>
-            <td>{{ evaluation.note }}</td>
-            <td>{{ evaluation.avis }}</td>
-            <td>
-                <a class="btn btn-info"  role="button" href="{{ path('app_evaluation_show', {'idEvaluation': evaluation.idEvaluation}) }}">show</a>
-                <a class="btn btn-secondary"  role="button" href="{{ path('app_evaluation_edit', {'idEvaluation': evaluation.idEvaluation}) }}">edit</a>
-                <a class="btn btn-warning"  role="button" href="{{ path('emailev', {'avis':evaluation.avis  } ) }}">Send Result</a>
-
-            </td>
-            {% endif %}
+        {% endif %}
 
 
         {% endfor %}
