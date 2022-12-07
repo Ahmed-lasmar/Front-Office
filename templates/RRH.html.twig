@@ -97,8 +97,31 @@
                         <p>List des offres d'emploi </p>
                         </a>
                     </li>
+                </ul>
+            <li class="nav-item">
+                <a href={{ asset("#")}} class="nav-link ">
+                <p>
+                    Gestion des formateurs - Gestion des formations
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href={{ path("app_formateur_index")}} class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>List des formateurs</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href={{ path("app_formation_index")}} class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>List des formations </p>
+                        </a>
+                    </li>
+
 
                 </ul>
+            </li>
             </li>
 
         </ul>
@@ -106,4 +129,3 @@
 {% endblock %}
 
 {% block body %}{% endblock %}
-
