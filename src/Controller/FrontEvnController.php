@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Participation;
 use App\Form\ParticipationType;
 use Doctrine\ORM\EntityManagerInterface;
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +26,6 @@ class ParticipationController extends AbstractController
             'participations' => $participations,
         ]);
     }
-
 
     #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -109,6 +107,4 @@ class ParticipationController extends AbstractController
 
         return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
 }

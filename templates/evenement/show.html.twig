@@ -7,32 +7,33 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Idevent</th>
-                <td>{{ evenement.idevent }}</td>
-            </tr>
-            <tr>
-                <th>Iduser</th>
-                <td>{{ evenement.iduser }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ evenement.type }}</td>
-            </tr>
-            <tr>
-                <th>Dateevent</th>
-                <td>{{ evenement.dateevent }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ evenement.adresse }}</td>
-            </tr>
+        <tr>
+            <th>Idevent</th>
+            <td>{{ evenement.idevent }}</td>
+        </tr>
+        <tr>
+            <th>Iduser</th>
+            <td>{{ evenement.iduser }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ evenement.type }}</td>
+        </tr>
+        <tr>
+            <th>Dateevent</th>
+            <td>{{ evenement.dateevent }}</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>{{ evenement.adresse }}</td>
+        </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_evenement_index') }}">back to list</a>
 
     <a href="{{ path('app_evenement_edit', {'idevent': evenement.idevent}) }}">edit</a>
+
 
     {{ include('evenement/_delete_form.html.twig') }}
 {% endblock %}

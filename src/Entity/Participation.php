@@ -21,8 +21,6 @@ class Participation
     private $idevent;
 
     /**
-     *@Assert\NotBlank(message="L'id doit etre non vide")
-     * @var int
      *
      * @ORM\Column(name="idParticipation", type="integer", nullable=false)
      * @ORM\Id
