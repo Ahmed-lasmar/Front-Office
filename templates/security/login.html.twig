@@ -44,6 +44,9 @@
                                         <input type="password" name="mdp" id="inputmdp" class="form-control" autocomplete="mdp" required>
                                         <div class="invalid-feedback">S'il vous plait entrez votre mot de passe!</div>
                                     </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">vous oubliez vos mot de passe? <a href="{{ path('forgot') }}">Reset le mot de passe</a></p>
+                                    </div>
 
                                     <input type="hidden" name="_csrf_token"
                                            value="{{ csrf_token('authenticate') }}"
@@ -58,6 +61,7 @@
                                     <div class="col-12">
                                         <button class="w-100" type="submit">Connexion</button>
                                     </div>
+
                                     <div class="col-12">
                                         <p class="small mb-0">Vous n'avez pas de compte? <a href="{{ path('app_registration') }}">Create an account</a></p>
                                     </div>
