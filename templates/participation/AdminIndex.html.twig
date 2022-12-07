@@ -1,5 +1,5 @@
+{% extends 'Emp.html.twig' %}
 
-{% extends app.user.role is same as 'ROLE_ADMIN' ? 'admin.html.twig' : app.user.role is same as 'ROLE_EMP' ? 'main/Femp.html.twig' :'RRH.html.twig' %}
 {% block title %}Participation index{% endblock %}
 
 {% block body %}
@@ -7,13 +7,13 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Idevent</th>
-                <th>Idparticipation</th>
-                <th>Iduser</th>
-                <th>Pmail</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Idevent</th>
+            <th>Idparticipation</th>
+            <th>Iduser</th>
+            <th>Pmail</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for participation in participations %}
@@ -22,7 +22,10 @@
                 <td>{{ participation.idparticipation }}</td>
                 <td>{{ participation.iduser }}</td>
                 <td>{{ participation.pmail }}</td>
-
+                <td>
+                    <a href="{{ path('app_participation_show', {'idparticipation': participation.idparticipation}) }}">show</a>
+                    <a href="{{ path('app_participation_edit', {'idparticipation': participation.idparticipation}) }}">edit</a>
+                </td>
             </tr>
         {% else %}
             <tr>
@@ -32,4 +35,5 @@
         </tbody>
     </table>
 
+    <a href="{{ path('app_participation_new') }}">Create new</a>
 {% endblock %}
