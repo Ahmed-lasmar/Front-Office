@@ -83,7 +83,6 @@ class EntretienController extends AbstractController
         $idE= $request->get('idEvaluation');
         $idEnt= $request->get('id_ent');
         $entretien = new Entretien();
-        $evaluation = new Evaluation();
         $form = $this->createForm(EntretienType::class, $entretien);
         $form->handleRequest($request);
 
@@ -91,7 +90,6 @@ class EntretienController extends AbstractController
             //$entretien->setEvaluation($evaluation->getIdEvaluation());
             //$evaluation->setEntretien($entretien->getIdEntretien());
             $entityManager->persist($entretien);
-            $entityManager->persist($evaluation);
             $entityManager->flush();
             return $this->redirectToRoute('app_entretien_index', [], Response::HTTP_SEE_OTHER);
         }
