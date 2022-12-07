@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "endroid/qr-code-bundle": {
+        "version": "4.1.1"
+    },
     "mercuryseries/flashy-bundle": {
         "version": "v5.1.0"
     },
