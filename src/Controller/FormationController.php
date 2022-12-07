@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Formation;
+use App\Entity\Image;
 use App\Form\FormationType;
+use App\Repository\ImageRepository;
+use App\Services\QrcodeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,15 +29,40 @@ class FormationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, QrcodeService $qrcodeService): Response
     {
+        $qrCode =null;
+
         $formation = new Formation();
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //qr-code
+            $qrcodeService->qrcode("c'est une formation de ". $formation->getNomFor()." de nombre de participants maximum".$formation->getNumbrMaxPer());
+            // On récupère les images transmises
+            $images = $form->get('image')->getData();
+
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('image_directory'),
+                    $fichier
+                );
+
+                // On stocke l'image dans la base de données (son nom)
+                $img = new Image();
+                $img->setName($fichier);
+                $formation->addImage($img);
+            }
+
             $entityManager->persist($formation);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -42,6 +70,7 @@ class FormationController extends AbstractController
         return $this->renderForm('formation/new.html.twig', [
             'formation' => $formation,
             'form' => $form,
+            'qrCode'=>$qrCode
         ]);
     }
 
@@ -80,5 +109,23 @@ class FormationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+    }
+    //affichage formation liste front-office
+    //path(/formation/mainemp)
+
+    //fonction recherche avec nomFor
+    /**
+     * @route("/recherche",name="recherche" ,methods={"GET","POST"})
+     *
+     *
+     */
+    public function recherche(Request $req, EntityManagerInterface $entityManager)
+    {
+        $data = $req->get('searche');
+        $repository = $entityManager->getRepository(Formation::class);
+        $produits = $repository->findBy(['nomFor' => $data]);
+        return $this->render('formation/index.html.twig', [
+            'formations' => $produits
+        ]);
     }
 }

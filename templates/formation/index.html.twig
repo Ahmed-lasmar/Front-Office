@@ -1,20 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'RRH.html.twig' %}
 
 {% block title %}Formation index{% endblock %}
 
 {% block body %}
-    <h1>Formation index</h1>
+    <form action="/formation/recherche" method="post"
+          class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+            <input type="text" name="searche" class="form-control bg-light border-0 small" placeholder="recherche..."
+                   aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="fas fa-fw" type="submit" value="recherche">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+    <h1>Liste des formations</h1>
+    <h5>Le nombre de formation disponibles : {{ formations |length }}</h5>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>IdFor</th>
-                <th>IdFormateur</th>
-                <th>DateFor</th>
-                <th>NomFor</th>
-                <th>NumbrMaxPer</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>IdFor</th>
+            <th>IdFormateur</th>
+            <th>DateFor</th>
+            <th>NomFor</th>
+            <th>NumbrMaxPer</th>
+
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for formation in formations %}
@@ -38,4 +54,5 @@
     </table>
 
     <a href="{{ path('app_formation_new') }}">Create new</a>
+
 {% endblock %}

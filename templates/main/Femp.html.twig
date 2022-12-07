@@ -1,6 +1,4 @@
-
 {% extends 'base.html.twig' %}
-
 {% block title %}Acceuil{% endblock %}
 
 
@@ -28,5 +26,50 @@
 {% endblock %}
 
 {% block body %}
-    <br><br><br><br><br><br><br> <center> Emp Front End </center> <br><br><br><br><br><br><br><br><br><br><br>
+    <div class="row special-list">
+        <div class="col-lg-3 col-md-6 special-grid best-seller">
+            <div class="row">
+
+
+
+                <div class="card" style="width: 18rem;height: 100%">
+                    {% for e in list %}
+                        {% set a="upload/"~e.name %}
+                        {% set p=e.formation.numbrMaxPer %}
+
+                        <img src="{{ asset(a)}}" class="cart-thumb" alt="" />
+                        <h5><span class="text text-danger">{{ e.formation.nomFor | upper }}</span></h5>
+                        <h5><span class="text text-danger">avec nombre maximum de personnes {{ p }}</span></h5>
+                        <h6><a href={{ path("app_logout") }}>participer</a></h6>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+
+
+
 {% endblock %}

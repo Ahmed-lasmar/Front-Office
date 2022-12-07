@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Offreemploi;
 use App\Entity\Rate;
+use App\Repository\ImageRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\RateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,22 +25,24 @@ class MainController extends AbstractController
         return $this->render('main/rrh.html.twig');
     }
 
-    #[Route('/mainemp', name: 'app_main_emp')]
-    public function mainemp(): Response
-    {
-        return $this->render('main/Femp.html.twig');
-    }
+
 
     #[Route('/maincan', name: 'app_main_can')]
     public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,RateRepository $rateRepository): Response
     {
         $list=$imagesRepository->findAll();
         $lists=$rateRepository->topRatedOffer();
-
-
         return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
     }
 
+    //  route ==>  /mainemp
+    #[Route('/mainemp', name: 'app_main_emp', methods: ["GET"])]
+    public function showFormation(EntityManagerInterface $entityManager, ImageRepository $imageRepository):Response
+    {
+        $liste=$imageRepository->findAll();
+        return $this->render('main/Femp.html.twig',['list'=>$liste]);
+
+    }
     #[Route('/db', name: 'app_db')]
     public function db(): Response
     {
