@@ -54,7 +54,6 @@ class Evaluation
      */
     private $entretien;
 
-
     /**
      * @return mixed
      */
