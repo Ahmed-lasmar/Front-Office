@@ -20,7 +20,6 @@ class User4Type extends AbstractType
             ->add('urlPhoto')
             ->add('dateDeNaissance')
             ->add('numTel')
-            ->add('dateEmbauche')
         ;
     }
 
