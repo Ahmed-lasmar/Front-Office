@@ -25,7 +25,9 @@ class FicheDePaieController extends AbstractController
         ]);
     }
 
-    #[Route('/recherche', name: 'recherche', methods: ['GET', 'POST'])]
+    
+    #[Route('/recherche', name: 'recherchey', methods: ['GET', 'POST'])]
+
     public function recherche(Request $req, EntityManagerInterface $entityManager)
     {
         $data = $req->get('searche');
@@ -69,7 +71,7 @@ class FicheDePaieController extends AbstractController
     }
 
     /**
-     * @Route("/triid", name="triid")
+     * @Route("/triidd", name="triidd")
      */
 
     public function Triid(Request $request)
