@@ -22,7 +22,12 @@
                 <td>{{ participation.idparticipation }}</td>
                 <td>{{ participation.iduser }}</td>
                 <td>{{ participation.pmail }}</td>
-
+                {% if app.user.role is same as 'ROLE_ADMIN' %}
+                <td>
+                    <a href="{{ path('app_participation_show', {'idparticipation': participation.idparticipation}) }}">show</a>
+                    <a href="{{ path('app_participation_edit', {'idparticipation': participation.idparticipation}) }}">edit</a>
+                </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
@@ -31,5 +36,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if app.user.role is same as 'ROLE_ADMIN' %}
+    <a href="{{ path('app_participation_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

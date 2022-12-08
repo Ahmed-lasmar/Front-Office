@@ -43,8 +43,17 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         #- { path: ^/user, roles: ROLE_ADMIN }
-         #- { path: ^/conge, roles: ROLE_RRH }
+         - { path: ^/user, roles: [ROLE_ADMIN , ROLE_EMP,ROLE_RRH,ROLE_CANDIDATE]}
+         - { path: ^/conge, roles: [ ROLE_EMP,ROLE_RRH] }
+         - { path: ^/fiche/de/paie, roles: [ ROLE_EMP,ROLE_RRH] }
+         - { path: ^/formateur, roles: [ ROLE_EMP,ROLE_RRH] }
+         - { path: ^/formation, roles: [ ROLE_EMP,ROLE_RRH] }
+         - { path: ^/formatteur, roles: [ ROLE_EMP,ROLE_RRH] }
+         - { path: ^/participation, roles: [ROLE_ADMIN , ROLE_EMP,ROLE_RRH] }
+         - { path: ^/postule, roles: [ ROLE_CANDIDATE,ROLE_RRH] }
+         - { path: ^/candidat, roles: [ ROLE_CANDIDATE,ROLE_RRH] }
+         - { path: ^/evenement, roles: [ ROLE_EMP,ROLE_RRH,ROLE_ADMIN] }
+         - { path: ^/aff, roles: [ROLE_ADMIN , ROLE_EMP,ROLE_RRH,ROLE_CANDIDATE] }
 
 when@test:
     security:
