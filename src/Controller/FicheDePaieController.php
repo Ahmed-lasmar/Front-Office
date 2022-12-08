@@ -27,11 +27,8 @@ class FicheDePaieController extends AbstractController
             'fiche_de_paies' => $ficheDePaies,
         ]);
     }
-    /**
-     * @route("/recherche",name="recherche" ,methods={"GET","POST"})
-     *
-     *
-     */
+    
+    #[Route('/recherche', name: 'recherchey', methods: ['GET', 'POST'])]
     public function recherche(Request $req, EntityManagerInterface $entityManager)
     {
         $data = $req->get('searche');
@@ -75,7 +72,7 @@ class FicheDePaieController extends AbstractController
     }
 
     /**
-     * @Route("/triid", name="triid")
+     * @Route("/triidd", name="triidd")
      */
 
     public function Triid(Request $request)
@@ -115,7 +112,7 @@ class FicheDePaieController extends AbstractController
         ]);
     }
 
-    #[Route('/{idFp}', name: 'app_fiche_de_paie_show', methods: ['GET'])]
+    #[Route('/s/{idFp}', name: 'app_fiche_de_paie_show', methods: ['GET'])]
     public function show(FicheDePaie $ficheDePaie): Response
     {
         return $this->render('fiche_de_paie/show.html.twig', [
@@ -141,7 +138,7 @@ class FicheDePaieController extends AbstractController
         ]);
     }
 
-    #[Route('/{idFp}', name: 'app_fiche_de_paie_delete', methods: ['POST'])]
+    #[Route('/d/{idFp}', name: 'app_fiche_de_paie_delete', methods: ['POST'])]
     public function delete(Request $request, FicheDePaie $ficheDePaie, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ficheDePaie->getIdFp(), $request->request->get('_token'))) {
