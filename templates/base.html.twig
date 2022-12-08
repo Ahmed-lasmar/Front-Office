@@ -61,8 +61,8 @@
 
                         <nav id="navbar" class="navbar order-last order-lg-0">
                             <ul>
-                                <li><a class="nav-link scrollto active" href={{ path("app_main_emp")}}>Home</a></li>
-                                <li><a class="nav-link scrollto" href={{ path("app_participation_index")}}>Evenements</a></li>
+                                <li><a class="nav-link scrollto active" href={{ path("app_main")}}>Home</a></li>
+                                <li><a class="nav-link scrollto" href={{ path("afff")}}>Evenements</a></li>
                                 <li><a class="nav-link scrollto" href={{ path("app_emp")}}>DashBoard</a></li>
 
                             </ul>
@@ -72,7 +72,7 @@
                         <a href={{ path("app_logout")}} class="get-started-btn scrollto">Logout</a>
 
                     {% elseif app.user.role is same as 'ROLE_RRH' %}
-                        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main_rrh")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
+                        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -87,7 +87,7 @@
 
                         <a href={{ path("app_logout")}} class="get-started-btn scrollto">Logout</a>
                     {% elseif app.user.role is same as 'ROLE_CANDIDATE' %}
-                        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main_can")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
+                        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 

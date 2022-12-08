@@ -53,16 +53,16 @@ class Evenement
     private $dateevent;
 
     /**
-     *@Assert\NotBlank(message="La date doit etre non vide")
+     *@Assert\NotBlank(message="Le type de match doit etre non vide")
      *@Assert\Length(
-     * min = 10,
-     * max = 10,
-     * minMessage="La date est incorrecte",
-     * maxMessage="La date est incorrecte yyyy-mm-dd"
+     * min = 4,
+     * max = 55,
+     * minMessage="L'adresse doit etre >=4",
+     * maxMessage="L'adresse doit etre <=55"
      *   )
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=30, nullable=false)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
 
     private $adresse;

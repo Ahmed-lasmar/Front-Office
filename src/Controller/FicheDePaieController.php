@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Controller;
-use App\Repository\EmpRepository;
-use App\Service\pdfService;
 use App\Entity\FicheDePaie;
-use App\Entity\Personne;
 use App\Form\FicheDePaieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,8 +24,10 @@ class FicheDePaieController extends AbstractController
             'fiche_de_paies' => $ficheDePaies,
         ]);
     }
+
     
     #[Route('/recherche', name: 'recherchey', methods: ['GET', 'POST'])]
+
     public function recherche(Request $req, EntityManagerInterface $entityManager)
     {
         $data = $req->get('searche');
