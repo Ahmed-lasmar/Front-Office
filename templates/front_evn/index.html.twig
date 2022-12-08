@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block body  %}
+
+
+    <section class="bet-this-game">
+        <div class="overlay pt-120 pb-120">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="section-header text-center">
+
+                            <h2 class="title" style="font-size: 40px; background-image: {{ asset('/assets/img/eve.png') }} ; font-family: 'georgia';font-weight: bolder;">Liste des evenements</h2>
+
+                        </div>
+                        {% for evenement in evenements %}
+                            <div class="card" style="width: 18rem; display: inline-grid; margin: 60px; border-width: thick; border-color: #777785; border-radius: 12px; ">
+                                <div class="card-body" style="background-image:{{ asset('/assets/eve.png') }}">
+                                    <h5 class="card-title" style="text-align: center; font-family: cursive;font-weight: bold;";>{{ evenement.type }}</h5>
+                                    <p class="card-text" style=" font-size: 15px; font-family: cursive;">Id event :{{ evenement.idevent }}</p>
+                                    <h6 class="card-subtitle mb-2 text-muted" style="font-family: cursive;">{{ evenement.dateevent }}</h6>
+                                    <p class="card-text" style="font-family: cursive;">{{ evenement.adresse }}</p>
+                                    <img src="{{ asset('/assets/img/loc.png') }}" class="card-link" style="margin-bottom: 5px;">
+                                    <a href="https://www.google.com/maps/@45.7591985,21.2384426,16z" target="_blank" class="card-link" style="font-family: 'Comic Sans MS';font-size: 22px;"> Maps </a>
+
+
+
+                                </div>
+                                <button class="btn btn-primary" style="margin-top: 50px;" ><a href={{ path('app_participation_new') }} target="_blank" style="font-weight: bold;font-family: cursive;"> réserver</a>  </button>
+                            </div>
+
+
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    {#    <span class="badge badge-sm bg-gradient-faded-success-vertical">  {{ knp_pagination_render(b) }} </span>#}
+
+{% endblock %}

@@ -51,6 +51,8 @@ security:
          - { path: ^/formatteur, roles: [ ROLE_EMP,ROLE_RRH] }
          - { path: ^/participation, roles: [ROLE_ADMIN , ROLE_EMP,ROLE_RRH] }
          - { path: ^/postule, roles: [ ROLE_CANDIDATE,ROLE_RRH] }
+         - { path: ^/candidat, roles: [ ROLE_CANDIDATE,ROLE_RRH] }
+         - { path: ^/evenement, roles: [ ROLE_EMP,ROLE_RRH,ROLE_ADMIN] }
 
 when@test:
     security:
