@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -141,6 +143,16 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
 
     #[ORM\OneToMany(targetEntity: Conge::class, mappedBy: 'user')]
     private $conges;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rate::class, mappedBy="user",cascade={"persist"})
+     */
+    private $rate;
+
+    public function __construct()
+    {
+        $this->rate = new ArrayCollection();
+    }
 
     /**
      * @param int $iduser
@@ -359,6 +371,36 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     public function setResetToken($reset_token): void
     {
         $this->reset_token = $reset_token;
+    }
+
+    /**
+     * @return Collection<int, Rate>
+     */
+    public function getRate(): Collection
+    {
+        return $this->rate;
+    }
+
+    public function addRate(Rate $rate): self
+    {
+        if (!$this->rate->contains($rate)) {
+            $this->rate[] = $rate;
+            $rate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRate(Rate $rate): self
+    {
+        if ($this->rate->removeElement($rate)) {
+            // set the owning side to null (unless already changed)
+            if ($rate->getUser() === $this) {
+                $rate->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
 

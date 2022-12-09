@@ -87,13 +87,14 @@
 
                         <a href={{ path("app_logout")}} class="get-started-btn scrollto">Logout</a>
                     {% elseif app.user.role is same as 'ROLE_CANDIDATE' %}
-                        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main_can")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
+                        <h1 class="logo me-auto me-lg-0"><a href="{{ path('app_main_can', {'idcan': app.user.iduser}) }}">WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
                         <nav id="navbar" class="navbar order-last order-lg-0">
                             <ul>
-                                <li><a class="nav-link scrollto active" href={{ path("app_main_can")}}>Home</a></li>
+
+                                <li><a class="nav-link scrollto active" href="{{ path('app_main_can', {'idcan': app.user.iduser}) }}">Home</a></li>
                                 <li><a class="nav-link scrollto" href="{{ path('app_user_front_edit', {'iduser': app.user.iduser}) }}">Profil</a></li>
                             </ul>
                             <i class="bi bi-list mobile-nav-toggle"></i>

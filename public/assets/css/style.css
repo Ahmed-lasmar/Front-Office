@@ -1571,3 +1571,10 @@ section {
   font-size: 13px;
   color: #fff;
 }
+.back-video{
+  position: center;
+  width: 100%;
+  right:1000px;
+  left:1000px;
+
+}

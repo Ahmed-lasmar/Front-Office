@@ -28,6 +28,14 @@ class Rate
      */
     private $offreemploi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rate")
+     * @ORM\JoinColumn(name="user", referencedColumnName="idUser")
+     */
+    protected $user;
+
+
+
 
 
 
@@ -59,4 +67,18 @@ class Rate
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
 }

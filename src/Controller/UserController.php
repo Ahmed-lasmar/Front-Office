@@ -93,7 +93,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_main_can', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_main_can', ['idcan'=>$user->getIduser()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/FrontEdit.html.twig', [
