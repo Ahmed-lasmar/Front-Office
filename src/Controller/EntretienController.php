@@ -33,7 +33,7 @@ class EntretienController extends AbstractController
     public function note(Request $request, EntityManagerInterface $entityManager): Response
     {
         $idE= $request->get('id_ent');
-        $idEval= $request->get('idEvaluation');
+        //$idEval= $request->get('idEvaluation');
         $fname= $request->get('fname');
         $name= $request->get('name');
         $evaluation = new Evaluation();
@@ -50,6 +50,14 @@ class EntretienController extends AbstractController
 
             $entityManager->persist($evaluation);
             $entityManager->flush();
+
+            $evaluationId = $entityManager
+                        ->getRepository(Evaluation::class)
+                        ->findOneBy(['entretien'=>$idE]);
+            $cand->setEvaluation($evaluationId);
+            $entityManager->flush();
+
+
             return $this->redirectToRoute('app_evaluation_index', [], Response::HTTP_SEE_OTHER);
         }
 
