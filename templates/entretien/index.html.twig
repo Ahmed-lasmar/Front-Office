@@ -18,7 +18,6 @@
         </thead>
         <tbody>
         {% for entretien in entretiens  %}
-            {% if entretien.evaluation == null %}
             <tr>
                 <td>{{ entretien.firstnameCandidat }}</td>
                 <td>{{ entretien.nameCandidat }}</td>
@@ -29,11 +28,12 @@
                     <a class="btn btn-info"  role="button" href="{{ path('app_entretien_show', {'idEntretien': entretien.idEntretien}) }}">Show</a>
                     <a class="btn btn-secondary"  role="button" href="{{ path('app_entretien_edit', {'idEntretien': entretien.idEntretien}) }}">Edit</a>
                     <a class="btn btn-warning"  role="button" href="{{ path('email', {'name':entretien.firstnameCandidat ,'heure':entretien.heure, 'date':entretien.dateEntretien ? entretien.dateEntretien|date('Y-m-d') : '' } ) }}">Send Mail</a>
+               {%  if entretien.evaluation == null %}
                 <td>
                     <a class="btn btn-success"  role="button" href="{{ path('note', {'id_ent':entretien.idEntretien,'fname':entretien.firstnameCandidat,'name':entretien.nameCandidat}) }}">Evaluate</a>
                 </td>
+                {% endif %}
                 </tr>
-            {% endif %}
         {% endfor %}
         </tbody>
     </table>
