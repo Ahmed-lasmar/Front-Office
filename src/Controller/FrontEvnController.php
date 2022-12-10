@@ -2,109 +2,69 @@
 
 namespace App\Controller;
 
-use App\Entity\Participation;
-use App\Form\ParticipationType;
+use App\Entity\Evenement;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/participation')]
-class ParticipationController extends AbstractController
+class FrontEvnController extends AbstractController
 {
-    #[Route('/', name: 'app_participation_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/front/evn', name: 'app_front_evn')]
+    public function index(): Response
     {
-        $participations = $entityManager
-            ->getRepository(Participation::class)
+        return $this->render('front_evn/index.html.twig', [
+            'controller_name' => 'FrontEvnController',
+        ]);
+    }
+
+    #[Route('/aff', name: 'afff', methods: ['GET'])]
+    public function indexx(EntityManagerInterface $entityManager): Response
+    {
+        $evenements = $entityManager
+            ->getRepository(Evenement::class)
             ->findAll();
 
-        return $this->render('participation/index.html.twig', [
-            'participations' => $participations,
+        return $this->render('front_evn/index.html.twig', [
+            'evenements' => $evenements,
         ]);
     }
 
-    #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    /**
+     * @Route("/homeclient", name="home_client")
+     */
+    public function inde(Request  $request, PaginatorInterface $paginator): Response
     {
-        $participation = new Participation();
-        $form = $this->createForm(ParticipationType::class, $participation);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($participation);
-            $entityManager->flush();
-            $mail = new PHPMailer(true);
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
-
-            $mail->Username = 'mohamediheb.benslama@esprit.tn'; // YOUR gmail email
-            $mail->Password = 'ahoubabn1999!'; // YOUR gmail password
-
-            // Sender and recipient settings
-            $mail->setFrom('mohamediheb.benslama@esprit.tn', 'mali');
-            $mail->addAddress('mohamediheb.benslama@esprit.tn', 'Receiver Name');
-
-            // Setting the email content
-            $mail->IsHTML(true);
-            $mail->Subject = "Ajout d'une participation";
-            $mail->Body = '
-<h1>Nouvelle participation a été ajouté avec succes  </h1>
-';
+        $Evenements=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
 
 
-            $mail->send();
+        //PAGINATION BUNDLE
+        $Evenements = $paginator->paginate(
+        // Doctrine Query, not results
+            $Evenements,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            2
 
-            return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
-        }
 
-        return $this->renderForm('participation/new.html.twig', [
-            'participation' => $participation,
-            'form' => $form,
+        );
+
+
+
+
+
+        return $this->render('front_evn/index.html.twig', [
+            'evenements'=>$Evenements
         ]);
+
+
     }
 
-    #[Route('/{idparticipation}', name: 'app_participation_show', methods: ['GET'])]
-    public function show(Participation $participation): Response
-    {
-        return $this->render('participation/show.html.twig', [
-            'participation' => $participation,
-        ]);
-    }
 
-    #[Route('/{idparticipation}/edit', name: 'app_participation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ParticipationType::class, $participation);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('participation/edit.html.twig', [
-            'participation' => $participation,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{idparticipation}', name: 'app_participation_delete', methods: ['POST'])]
-    public function delete(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$participation->getIdparticipation(), $request->request->get('_token'))) {
-            $entityManager->remove($participation);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

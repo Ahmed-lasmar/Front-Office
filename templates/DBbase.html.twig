@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <link href="{{ asset("assets/img/WORKVISION .png") }}" rel="icon">
     {% block stylesheets %}
 
     <!-- Google Font: Source Sans Pro -->
@@ -790,6 +791,7 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
+        <div style="padding-left: 20px">
         {% block body %}
             <section class="content">
                 <div class="container-fluid">
@@ -1373,6 +1375,7 @@
                 </div><!-- /.container-fluid -->
             </section>
         {% endblock %}
+        </div>
 
         <!-- /.content -->
     </div>

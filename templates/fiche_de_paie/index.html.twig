@@ -11,7 +11,7 @@
             <input type="text" name="searche" class="form-control bg-light border-0 small" placeholder="recherche..."
                    aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="submit" value="recherche">
+                <button class="btn btn-primary" type="submit" value="recherchey">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>
@@ -23,19 +23,20 @@
                         <div class="card-title">Liste des fiches de paies</div>
                     </div>
                     <div class="card-body">
-                        <form role="search" id="nav-search-form" method="post" action="{{ path('triid') }}"> {#bouton tri#}
 
-
-                            <div class="btn-toolbar" role="toolbar" aria-label="Programmatic control">
-                                <div class="btn-group btn-group-sm" aria-label="Set Select2 option">
-                                    <button class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1">
-                                        Sort by salaireInit
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </form>
+    <form role="search" id="nav-search-form" method="post" action="{{ path('triidd') }}"> {#bouton tri#}
+
+
+        <div class="btn-toolbar" role="toolbar" aria-label="Programmatic control">
+            <div class="btn-group btn-group-sm" aria-label="Set Select2 option">
+                <button class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1">
+                    Sort by salaireInit
+                </button>
             </div>
         </div>
     </form>
