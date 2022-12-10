@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Rate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -60,6 +61,19 @@ class RateRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByUser($value): ?Rate
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.user = :val')
+            ->setParameter('val', $value)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
     public function topRatedOfferr()
     {
         $entitymMnager=$this->getEntityManager();

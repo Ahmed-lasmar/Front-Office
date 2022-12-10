@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Offreemploi;
 use App\Entity\Rate;
+use App\Entity\User;
 use App\Repository\ImageRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\RateRepository;
@@ -17,7 +18,7 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('acceuil.html.twig');
     }
     #[Route('/mainrrh', name: 'app_main_rrh')]
     public function mainrrh(): Response
@@ -34,12 +35,12 @@ class MainController extends AbstractController
 
     }
 
-    #[Route('/maincan', name: 'app_main_can')]
-    public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,RateRepository $rateRepository): Response
+    #[Route('/{idcan}/maincan', name: 'app_main_can')]
+    public function maincan(ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,RateRepository $rateRepository,$idcan): Response
     {
         $list=$imagesRepository->findAll();
         $lists=$rateRepository->topRatedOffer();
-
+        $candidat=$entityManager->getRepository(User::class)->find($idcan);
 
         return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
     }
@@ -49,21 +50,24 @@ class MainController extends AbstractController
     {
         return $this->render('DBbase.html.twig');
     }
-    #[Route('/portfolioDetails/{idOffre}', name: 'app_details')]
-    public function details($idOffre,ImagesRepository $imagesRepository): Response
+    #[Route('{idcan}/portfolioDetails/{idOffre}', name: 'app_details')]
+    public function details($idOffre,ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,$idcan): Response
     {
+        $candidat=$entityManager->getRepository(User::class)->find($idcan);
         $Offre=$imagesRepository->findByOffre($idOffre);
-        return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre]);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre,'candidat'=>$candidat]);
     }
-    #[Route('/portfolioDetails/{idOffre}/like', name: 'app_like_offer',  methods: ['GET', 'POST'])]
-    public function likeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
+    #[Route('{idcan}/portfolioDetails/{idOffre}/like', name: 'app_like_offer',  methods: ['GET', 'POST'])]
+    public function likeOffer($idcan,EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
     {
         $lists=$rateRepository->topRatedOffer();
         $list=$imagesRepository->findAll();
+        $candidat=$entityManager->getRepository(User::class)->find($idcan);
         $offre=$imagesRepository->findByOffre($idOffre);
         foreach($offre as $img){
             $rating=new Rate();
             $rating->setRating("like");
+            $rating->setUser($candidat);
             $img->getOffreemploi()->addRating($rating);
            $rateRepository->add($rating,true);
             $entityManager->persist($rating);
@@ -73,7 +77,7 @@ class MainController extends AbstractController
             //$offreemploi->addRating($rating);
         }
 
-        return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists]);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists,"rating"=>$rating]);
     }
     #[Route('/portfolioDetails/{idOffre}/dislike', name: 'app_dislike_offer',  methods: ['GET', 'POST'])]
     public function dislikeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
