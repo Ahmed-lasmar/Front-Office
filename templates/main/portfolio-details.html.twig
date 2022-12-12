@@ -4,24 +4,6 @@
 
 
 
-        <h1 class="logo me-auto me-lg-0"><a href={{ path("app_main_emp")}}>WorkVision</a><img  alt="" src="{{ asset("assets/img/WORKVISION .png") }}"></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-        <nav id="navbar" class="navbar order-last order-lg-0">
-          <ul>
-            <li><a class="nav-link scrollto active" href="{{ path('app_main_can', {'idcan': app.user.iduser}) }}">Home</a></li>
-
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-        <a href={{ path("app_logout")}} class="get-started-btn scrollto">Logout</a>
-
-      </div>
-    </header><!-- End Header -->
-  {% endblock %}
-
 
   {% block body %}
   <main id="main">
@@ -67,16 +49,16 @@
               </ul>
               <a href={{ path("app_candidat_new")}} class="filter-active"><h2>Demand This Offer</h2></a>
               {% for e in offre %}
-                  {% if rating.user.iduser == app.user.iduser %}
-                <h2>You have rated this offer </h2>
-                {% endif %}
-              {% if rating.user is null %}
+                {% if rating.rating is  null %}
                 {% set d="http://127.0.0.1:8000/"~app.user.iduser~"/portfolioDetails/"~e.offreemploi.idOffre~"/like" %}
-                {% set f="http://127.0.0.1:8000/{idcan}/portfolioDetails/"~e.offreemploi.idOffre~"/dislike" %}
+                {% set f="http://127.0.0.1:8000/"~app.user.iduser~"/portfolioDetails/"~e.offreemploi.idOffre~"/dislike" %}
                 <a href={{ absolute_url(d) }}><button type="button" class="btn btn-success">like</button></a>
                 <a href={{ absolute_url(f) }}> <button type="button" class="btn btn-danger">dislike</button></a>
-                {% endif %}
 
+                  {% endif %}
+                {% if rating.rating is not null %}
+                <h2>You have rated this offer </h2>
+                  {% endif %}
               {% endfor %}
 
               

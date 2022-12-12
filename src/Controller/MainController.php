@@ -41,7 +41,9 @@ class MainController extends AbstractController
         $list=$imagesRepository->findAll();
         $lists=$rateRepository->topRatedOffer();
         $candidat=$entityManager->getRepository(User::class)->find($idcan);
-
+        $rate=new Rate();
+        $rate->setUser($candidat);
+        $rateRepository->add($rate,true);
         return $this->render('main/Can.html.twig',['list'=>$list,'lists'=>$lists]);
     }
 
@@ -51,11 +53,17 @@ class MainController extends AbstractController
         return $this->render('DBbase.html.twig');
     }
     #[Route('{idcan}/portfolioDetails/{idOffre}', name: 'app_details')]
-    public function details($idOffre,ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,$idcan): Response
+    public function details($idOffre,ImagesRepository $imagesRepository,EntityManagerInterface $entityManager,$idcan,RateRepository $rateRepository): Response
     {
         $candidat=$entityManager->getRepository(User::class)->find($idcan);
         $Offre=$imagesRepository->findByOffre($idOffre);
-        return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre,'candidat'=>$candidat]);
+        $rating=$rateRepository->findByUser($idcan);
+        $offre=$entityManager->getRepository(Offreemploi::class)->find($idOffre);
+        $rate=new Rate();
+        $rate->setUser($candidat);
+        $rate->setOffreemploi($offre);
+        $rateRepository->add($rate,true);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$Offre,'candidat'=>$candidat,"rating"=>$rating]);
     }
     #[Route('{idcan}/portfolioDetails/{idOffre}/like', name: 'app_like_offer',  methods: ['GET', 'POST'])]
     public function likeOffer($idcan,EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
@@ -66,6 +74,7 @@ class MainController extends AbstractController
         $offre=$imagesRepository->findByOffre($idOffre);
         foreach($offre as $img){
             $rating=new Rate();
+
             $rating->setRating("like");
             $rating->setUser($candidat);
             $img->getOffreemploi()->addRating($rating);
@@ -79,15 +88,17 @@ class MainController extends AbstractController
 
         return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists,"rating"=>$rating]);
     }
-    #[Route('/portfolioDetails/{idOffre}/dislike', name: 'app_dislike_offer',  methods: ['GET', 'POST'])]
-    public function dislikeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository): Response
+    #[Route('{idcan}/portfolioDetails/{idOffre}/dislike', name: 'app_dislike_offer',  methods: ['GET', 'POST'])]
+    public function dislikeOffer(EntityManagerInterface $entityManager,$idOffre,ImagesRepository $imagesRepository,RateRepository $rateRepository,$idcan): Response
     {
         $list=$imagesRepository->findAll();
         $lists=$rateRepository->topRatedOffer();
+        $candidat=$entityManager->getRepository(User::class)->find($idcan);
         $offre=$imagesRepository->findByOffre($idOffre);
         foreach($offre as $img){
             $rating=new Rate();
             $rating->setRating("dislike");
+            $rating->setUser($candidat);
             $img->getOffreemploi()->addRating($rating);
             $rateRepository->add($rating,true);
             $entityManager->persist($rating);
@@ -97,6 +108,6 @@ class MainController extends AbstractController
             //$offreemploi->addRating($rating);
         }
 
-        return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists]);
+        return $this->render('main/portfolio-details.html.twig',['offre'=>$offre,'lists'=>$lists,"rating"=>$rating]);
     }
 }
